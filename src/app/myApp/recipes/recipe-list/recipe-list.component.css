@@ -1,0 +1,11 @@
+.float-left {
+    text-align: left;
+    float: left;
+    width:70%;
+}
+.float-left p {
+    font-size: 12px;
+}
+.float-right {
+    float: right;
+}

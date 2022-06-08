@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="card panel-default">
+    <div class="card-header">{{ element.name }}</div>
+    <div class="card-body">
+      <div>
+        <p *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</p>
+        <p *ngIf="element.type === 'blueprint'">{{ element.content }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

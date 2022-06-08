@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-first-project';
+  name = 'Mohit Upadhyay';
 }
+// how the module work come under .ts file 

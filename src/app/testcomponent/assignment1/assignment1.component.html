@@ -1,0 +1,9 @@
+<div class="assign1">
+    <div class="bind">
+        <p>Assignment1!</p>
+        <h5>Write Your Name</h5><input type="text" (keyup)="show($event)">
+        <br><br>
+        <h3 [style.fontSize.px]="fontsize">{{name}}</h3>
+        <button (click)="decrease()">-</button> | <button (click)="increase()">+</button>
+    </div>
+</div>

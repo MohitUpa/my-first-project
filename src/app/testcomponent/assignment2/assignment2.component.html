@@ -1,0 +1,8 @@
+<div class="assign1">
+    <div class="bind">
+        <p>Assignment2!</p>
+        <app-product [amount]="showAmount()" (newItemEvent)="quantity($event)"></app-product>
+        <h3>Quantity({{qtys}})</h3>
+        <button (click)="decrease()">-</button> | <button (click)="increase()">+</button>    
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Udemy works!</h1>
+            <h5>Binding</h5>
+            <label for="username"></label>
+            <input type="text" class="form-control" [(ngModel)]="username">
+            <h5><br>{{username}}</h5>
+            <button class="btn btn-danger" [disabled]=" username === ''" (click)="username = ''">Reset</button>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h5>Directives</h5>
+            <!-- <button class="btn btn-danger" (click)="showScreate = !showScreate">Display Details</button> -->
+            <button class="btn btn-danger" (click)="onToggleDetail()">Display Details</button>
+            <p *ngIf="showScreate == true">secreate password : Designer</p>
+            <p [ngClass]="{'white-color' : logItem > 5}" [ngStyle]="{backgroundColor: i >=5 ? 'blue' : 'transparent'}"
+                *ngFor="let logItem of log; let i = index">{{logItem}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<br>
+<hr><br>
+<!-- input and output decorator -->
+
+<div class="container">
+    <app-cockpit 
+    (serverCreated)="onServerAdded($event)"
+    (blueprintCreated)="onBlueprintAdded($event)"
+    ></app-cockpit>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <app-server-element 
+            *ngFor="let serverElement of serverElements"
+            [srvElement]="serverElement">
+            </app-server-element>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div>
+            <h2 class="text-center md-3">Todos Application Angular!</h2>
+            <p>Todos List :</p>
+        </div> 
+        <div class="col-xs-12">
+            <div *ngFor="let todo of todos">
+                <!-- <p>{{todo.sno}}|{{todo.title}}|{{todo.desc}}|{{todo.active}}</p> -->
+                <app-todo-item [todo]="todo"></app-todo-item>
+            </div>
+        </div>
+    </div>
+</div> 
+

@@ -18,7 +18,6 @@ export class ProductComponent implements OnInit {
   quantity='';
   show(event: any) {
     this.quantity = event.target.value;
-    console.log(event.target.value);
     this.newItemEvent.emit(this.quantity);
   }
 }

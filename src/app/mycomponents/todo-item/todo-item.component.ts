@@ -1,6 +1,6 @@
-import { Component, OnInit ,Input} from '@angular/core';
+import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { Todo } from '../Todo';
-import { TodosComponent } from '../todos/todos.component';
+import { TodosComponent } from '../todos/todos.component'; 
 
 @Component({
   selector: 'app-todo-item',
@@ -10,6 +10,8 @@ import { TodosComponent } from '../todos/todos.component';
 export class TodoItemComponent implements OnInit {
 
   @Input() todo : Todo;
+  @Output() todoDelete:EventEmitter<Todo> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -17,5 +19,6 @@ export class TodoItemComponent implements OnInit {
 
   onClick(todo:Todo) {
     console.log("onClick in Delete has Trigger");
+    this.todoDelete.emit(todo);
   }
 }

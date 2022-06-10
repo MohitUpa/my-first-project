@@ -24,7 +24,9 @@ import { ServerElementComponent } from './udemy/server-element/server-element.co
 import { Assignment2Component } from './testcomponent/assignment2/assignment2.component';
 import { ProductComponent } from './testcomponent/assignment2/product/product.component';
 import { MyAppComponent } from './myApp/my-app.component';
-
+import { AddTodoComponent } from './mycomponents/add-todo/add-todo.component';
+import { FooterRecipeComponent } from './myApp/footer-recipe/footer.component';
+import { Assignment3Component } from './testcomponent/assignment3/assignment3.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,12 +49,18 @@ import { MyAppComponent } from './myApp/my-app.component';
     ServerElementComponent,
     Assignment2Component,
     ProductComponent,
-    MyAppComponent
+    MyAppComponent,
+    AddTodoComponent,
+    FooterRecipeComponent,
+    Assignment3Component
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule 
+    FormsModule
+  ],
+  exports: [
+    RecipeItemComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

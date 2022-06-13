@@ -8,5 +8,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'my-first-project';
   name = 'Mohit Upadhyay';
+  assign = false;
+  showAssign() {
+    this.assign = true;
+  }
+  hideAssign() {
+    this.assign = false;
+  }
 }
 // how the module work come under .ts file 

@@ -1,4 +1,3 @@
-
 <div class="all">
   <!-- header -->
   <app-header></app-header>
@@ -6,7 +5,7 @@
   <div class="backing">
     <h1>HOME</h1>
   </div>
-  <hr>
+
   <!-- for main content -->
   <div class="content">
     <div class="home">
@@ -41,35 +40,61 @@
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
       </div>
     </div>
+    <br>
+    <hr>
+    <div class="home">
+      <img style="width:150px" src="../assets/images/logo.png"><br><br>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
+        dolor deserunt excepturi explicabo possimus voluptatem animi illum ducimus saepe, corrupti voluptatum molestiae
+        quo,
+        veritatis nam
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
+        dolor deserunt
+      </p>
+    </div>
   </div>
-  <hr>
-  
-  <!-- Assignments -->
-  <app-assignment1></app-assignment1>
-  <br>
-  <app-assignment2></app-assignment2>
-  <br>
-  <app-assignment3></app-assignment3>
-  <hr>
- 
+  <app-assignment3></app-assignment3><br>
+  <hr><br>
 
-
-  <!-- udemy Assignments -->
-  <app-udemy></app-udemy>
-  <hr>
-
-  <!-- todos app codewithharry -->
-  <div class="myTestApp">
-    <app-mycomponents></app-mycomponents>
+  <div class="buttondesign">
+    <button (click)="showAssign()">Show</button><button (click)="hideAssign()">Hide</button>
   </div>
 
+  <div class="assign" *ngIf="assign">
 
-  <!-- Udemy recipe app -->
-  <div class="myTestApp">
-    <app-my-app></app-my-app>
+    <!-- Assignments -->
+    <app-assignment1></app-assignment1>
+    <br>
+    <app-assignment2></app-assignment2>
+    <br>
+    <app-assignment4></app-assignment4>
+    <br>
+    <hr>
+
+    <!-- udemy Assignments -->
+    <app-udemy></app-udemy>
+    <hr>
+
+    <!-- todos app codewithharry -->
+    <div class="myTestApp">
+      <app-mycomponents></app-mycomponents>
+    </div>
+
+    <!-- Udemy recipe app -->
+    <div class="myTestApp">
+      <app-my-app></app-my-app>
+    </div>
+    <hr>
+
   </div>
-  <hr>
-
   <!-- footer -->
-  <app-footer></app-footer>
+
+  <footer class="text-center text-white" style="background-color: rgba(17, 202, 26, 0.637);">
+
+    <app-footer></app-footer>
+
+  </footer>
+
+
 </div>

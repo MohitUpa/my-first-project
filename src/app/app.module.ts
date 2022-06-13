@@ -27,6 +27,8 @@ import { MyAppComponent } from './myApp/my-app.component';
 import { AddTodoComponent } from './mycomponents/add-todo/add-todo.component';
 import { FooterRecipeComponent } from './myApp/footer-recipe/footer.component';
 import { Assignment3Component } from './testcomponent/assignment3/assignment3.component';
+import { Assignment4Component } from './testcomponent/assignment4/assignment4.component';
+import { MybannercssDirective } from './directives/myStyle/mybannercss.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,9 @@ import { Assignment3Component } from './testcomponent/assignment3/assignment3.co
     MyAppComponent,
     AddTodoComponent,
     FooterRecipeComponent,
-    Assignment3Component
+    Assignment3Component,
+    Assignment4Component,
+    MybannercssDirective,
   ],
   imports: [
     BrowserModule,

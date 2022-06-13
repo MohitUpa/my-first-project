@@ -1,15 +1,18 @@
-
 <div class="slider">
-<div class="mall-slide">
-    <div class="slid-content" style="text-align: center;">
-        <div class="mall-show-slide fade" *ngFor="let item of Imagedata;">
-            <img src="{{item}}" style="width:300px">
+    <div class="mall-slide">
+        <div class="slid-content" style="text-align: center;">
+            <div class="mall-show-slide" *ngFor="let item of Imagedata;">
+                <img src="{{item}}">
+                <!-- {{item}} -->
+            </div>
+            <!-- <div class="mall-carousel-ind">
+                <ul>
+                    <li *ngFor="let item of Imagedata; let i = index;" [class.mall-this]="startIndex - 1 === i"></li>
+                </ul>
+            </div> -->
         </div>
-        <div class="mall-carousel-ind">
-            <ul>
-                <li *ngFor="let item of Imagedata; let i = index;" [class.mall-this]="startIndex - 1 === i"></li>
-            </ul>
-        </div>
+
     </div>
+    <button (click)="previous()" [disabled]="isDisabledprev">Prev</button><button (click)="next()" [disabled]="isDisablednext">next</button>
 </div>
-</div>
+

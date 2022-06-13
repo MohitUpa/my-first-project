@@ -7,45 +7,86 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Assignment3Component implements OnInit {
 
-  constructor() { } 
+  constructor() {
+    window.onload = this.__FunctionSlide;
+  }
 
-  // ngOnInit(): void {
-  // }
+  
+  ngOnInit(): void {
+  }
 
   Imagedata = [
-    '../../../assets/images/1.png','../../../assets/images/3.png','../../../assets/images/3.png'
+    '../../../assets/images/forest 1.jpg',
+    '../../../assets/images/forest 2.jpg',
+    '../../../assets/images/forest 3.jpg',
+    '../../../assets/images/forest 4.jpg',
+    '../../../assets/images/im34.jpg'
   ];
 
-  ngOnInit() {
-    this.Repeat();
-  }
   startIndex = 0;
-  Repeat() {
-    setTimeout(() => {
-      this.__FunctionSlide();
-      this.Repeat();
-    }, 2000);
-  }
+
+  isDisablednext = false;
+  isDisabledprev = false;
 
   __FunctionSlide() {
     const slides = Array.from(document.getElementsByClassName('mall-show-slide'));
-    if (slides === []) {
-      this.Repeat();
-    }
+
     for (const x of slides) {
       const y = x as HTMLElement;
       y.style.display = 'none';
     }
     if (this.startIndex > slides.length - 1) {
+      console.log(this.startIndex);
       this.startIndex = 0;
       const slide = slides[this.startIndex] as HTMLElement;
       slide.style.display = 'block';
       this.startIndex++;
+      this.isDisablednext = true;
+      this.isDisabledprev = false;
     } else {
-
       const slide = slides[this.startIndex] as HTMLElement;
       slide.style.display = 'block';
       this.startIndex++;
+      if (this.startIndex !== 1 && this.startIndex != 4) {
+        this.isDisabledprev = false;
+        this.isDisablednext = false;
+      }
     }
   }
+
+  __FunctionSlideprev() {
+    const slides = Array.from(document.getElementsByClassName('mall-show-slide'));
+    slides.reverse();
+    for (const x of slides) {
+      const y = x as HTMLElement;
+      y.style.display = 'none';
+    }
+    if (this.startIndex > slides.length - 1) {
+      console.log(this.startIndex);
+      this.startIndex = 0;
+      const slide = slides[this.startIndex] as HTMLElement;
+      slide.style.display = 'block';
+      this.startIndex++;
+      this.isDisabledprev = true;
+      this.isDisablednext = false;
+    } else {
+      const slide = slides[this.startIndex] as HTMLElement;
+      slide.style.display = 'block';
+      this.startIndex++;
+      if (this.startIndex !== 1 && this.startIndex != 4) {
+        this.isDisabledprev = false;
+        this.isDisablednext = false;
+      }
+    }
+  }
+
+  next() {
+    this.__FunctionSlide();
+  }
+
+  previous() {
+    this.__FunctionSlideprev();
+  }
+
+
 }

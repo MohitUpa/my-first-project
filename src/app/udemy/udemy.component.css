@@ -10,3 +10,10 @@
     color: blue;
   }
   
+  .odd {
+    color: red;
+  }
+
+  .even {
+    color: rgb(0, 206, 0);
+  }

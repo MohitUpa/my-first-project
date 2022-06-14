@@ -26,7 +26,7 @@ export class Assignment3Component implements OnInit {
   startIndex = 0;
 
   isDisablednext = false;
-  isDisabledprev = false;
+  isDisabledprev = true;
 
   __FunctionSlide() {
     const slides = Array.from(document.getElementsByClassName('mall-show-slide'));

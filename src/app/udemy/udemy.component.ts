@@ -10,12 +10,13 @@ export class UdemyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  } 
+  }
 
-  username='';
+
+  // Derver Example
+  username = '';
   log = [];
 
-  // showScreate() {
   showScreate = false;
   onToggleDetail() {
     this.showScreate = !this.showScreate;
@@ -23,17 +24,17 @@ export class UdemyComponent implements OnInit {
     this.log.push(new Date());
   }
 
-  serverElements = [{ 
-    type:'server',
-    name:'TestServer', 
-    content:'Test is best for development'
+  serverElements = [{
+    type: 'server',
+    name: 'TestServer',
+    content: 'Test is best for development'
   }];
 
 
   newServerName = '';
   newServerContent = '';
 
-  onServerAdded(serverData: {serverName:string,serverContent:string}) {
+  onServerAdded(serverData: { serverName: string, serverContent: string }) {
     this.serverElements.push({
       type: 'server',
       name: serverData.serverName,
@@ -41,11 +42,19 @@ export class UdemyComponent implements OnInit {
     });
   }
 
-  onBlueprintAdded(blueprintData: {serverName:string,serverContent:string}) {
+  onBlueprintAdded(blueprintData: { serverName: string, serverContent: string }) {
     this.serverElements.push({
       type: 'blueprint',
       name: blueprintData.serverName,
       content: blueprintData.serverContent
     });
   }
+
+
+  // Directives
+  numbers = [1, 2, 3, 4, 5];
+  evenNo = [2, 4];
+  oddNo = [1, 3, 5];
+  onlyOdd = false;
+  value = 10;
 }

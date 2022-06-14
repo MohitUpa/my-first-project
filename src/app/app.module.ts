@@ -29,6 +29,9 @@ import { FooterRecipeComponent } from './myApp/footer-recipe/footer.component';
 import { Assignment3Component } from './testcomponent/assignment3/assignment3.component';
 import { Assignment4Component } from './testcomponent/assignment4/assignment4.component';
 import { MybannercssDirective } from './directives/myStyle/mybannercss.directive';
+import { DirectiesUdemyComponent } from './udemy/directies-udemy/directies-udemy.component';
+import { BasicHighlightDirective } from './directives/udemyDirectives/basic-highlight.directive';
+import { BetterHighlightDirective } from './directives/udemyDirectives/better-highlight.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +60,9 @@ import { MybannercssDirective } from './directives/myStyle/mybannercss.directive
     Assignment3Component,
     Assignment4Component,
     MybannercssDirective,
+    DirectiesUdemyComponent,
+    BasicHighlightDirective,
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule,

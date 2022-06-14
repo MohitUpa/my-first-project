@@ -30,17 +30,53 @@
 <!-- input and output decorator -->
 
 <div class="container">
-    <app-cockpit 
-    (serverCreated)="onServerAdded($event)"
-    (blueprintCreated)="onBlueprintAdded($event)"
-    ></app-cockpit>
+    <app-cockpit (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)"></app-cockpit>
     <hr>
     <div class="row">
         <div class="col-xs-12">
-            <app-server-element 
-            *ngFor="let serverElement of serverElements"
-            [srvElement]="serverElement">
+            <app-server-element *ngFor="let serverElement of serverElements" [srvElement]="serverElement">
             </app-server-element>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Directives -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+            <br><br>
+            <ul class="list-group">
+                <div *ngIf="onlyOdd">
+                    <li class="list-group-item" [ngClass]="{odd: odd % 2 !== 0}"
+                        [ngStyle]="{background:odd % 2 !== 0 ? 'pink' : 'yellow'}" *ngFor="let odd of oddNo">{{odd}}
+                    </li>
+                </div>
+                <div *ngIf="!onlyOdd">
+                    <li class="list-group-item" [ngClass]="{odd: even % 2 !== 0}"
+                        [ngStyle]="{background:even % 2 !== 0 ? 'yellow' : 'lightgreen'}" *ngFor="let even of evenNo">
+                        {{even}}
+                    </li>
+                </div>
+            </ul>
+            <br>
+            <h5 appHighlight>Style Me With Basic Directive.</h5>
+            <h5 appBetterHighlight [defaultColor]="'blue'" [highlightColor]="'red'">Style Me With better Directive.
+                Style with Renderer2.</h5>
+
+            <!-- <ng-template [ngIf]="onlyOdd">
+            <p>Only odd</p>
+            </ng-template> -->
+            <div appMybannercss [ngSwitch]="10">
+                <h5>ngSwitch</h5>
+                <P *ngSwitchCase="0">Value is 0</P>
+                <P *ngSwitchCase="10">Value is 10</P>
+                <P *ngSwitchCase="50">Value is 50</P>
+                <P *ngSwitchCase="100">Value is 100</P>
+                <P *ngSwitchDefault>Value is default</P>
+            </div>
         </div>
     </div>
 </div>

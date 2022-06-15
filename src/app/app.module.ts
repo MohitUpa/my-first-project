@@ -32,6 +32,10 @@ import { MybannercssDirective } from './directives/myStyle/mybannercss.directive
 import { DirectiesUdemyComponent } from './udemy/directies-udemy/directies-udemy.component';
 import { BasicHighlightDirective } from './directives/udemyDirectives/basic-highlight.directive';
 import { BetterHighlightDirective } from './directives/udemyDirectives/better-highlight.directive';
+import { SliderComponent } from './testcomponent/slider/slider.component';
+import { NewAccountComponent } from './udemy/new-account/new-account.component';
+import { AccountComponent } from './udemy/account/account.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +66,10 @@ import { BetterHighlightDirective } from './directives/udemyDirectives/better-hi
     MybannercssDirective,
     DirectiesUdemyComponent,
     BasicHighlightDirective,
-    BetterHighlightDirective
+    BetterHighlightDirective,
+    SliderComponent,
+    NewAccountComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

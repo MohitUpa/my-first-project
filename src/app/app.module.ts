@@ -35,6 +35,7 @@ import { BetterHighlightDirective } from './directives/udemyDirectives/better-hi
 import { SliderComponent } from './testcomponent/slider/slider.component';
 import { NewAccountComponent } from './udemy/new-account/new-account.component';
 import { AccountComponent } from './udemy/account/account.component';
+import { ProductServicesComponent } from './testcomponent/assignment5/product-services/product-services.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { AccountComponent } from './udemy/account/account.component';
     BetterHighlightDirective,
     SliderComponent,
     NewAccountComponent,
-    AccountComponent
+    AccountComponent,
+    ProductServicesComponent
   ],
   imports: [
     BrowserModule,

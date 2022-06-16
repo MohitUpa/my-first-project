@@ -1,0 +1,27 @@
+.pro_all {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.pro_all .product {
+    padding: 3px;
+    border: 1px solid #000;
+    margin: 10px;
+}
+
+.toggleProduct {
+    display: flex;
+    flex-wrap: wrap;
+text-align: center;
+justify-content: center;
+align-items: center;
+}
+ .product_by_cat {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}

@@ -1,0 +1,31 @@
+<div class="route-all">
+  <div class="container" style="text-align: left;">
+    <div class="row">
+      <div class="navbar">
+        <ul class="nav">
+          <li role="presentation" class="nav-item">
+            <a class="nav-link text-dark" 
+            routerLinkActive="bg-dark text-white" 
+            [routerLinkActiveOptions]="{exact:true}"
+            routerLink="/">Home</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link text-dark" 
+            routerLinkActive="bg-dark text-white" 
+            routerLink="/servers">Servers</a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a class="nav-link text-dark"
+             routerLinkActive="bg-dark text-white" 
+             [routerLink]="['/users']">Users</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

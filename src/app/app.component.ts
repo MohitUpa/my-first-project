@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'my-first-project';
   name = 'Mohit Upadhyay';
-  assign = false;
+  assign = true;
   showAssign() {
     this.assign = true;
   }

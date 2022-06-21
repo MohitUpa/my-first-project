@@ -9,11 +9,11 @@ export class ServerElementComponent implements OnInit {
 
   @Input('srvElement') element: {type:string,name:string,content:string}
   constructor() {
-    console.log("Constructor Called");
+    // console.log("Constructor Called");
    }
 
   ngOnInit(): void {
-    console.log("ngOnInit Called");
+    // console.log("ngOnInit Called");
 
   }
 

@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from './account.service';
 
 @Component({
   selector: 'app-udemy',
   templateUrl: './udemy.component.html',
-  styleUrls: ['./udemy.component.css']
+  styleUrls: ['./udemy.component.css'],
+  providers: [AccountService]
 })
 export class UdemyComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 
   // Derver Example
@@ -59,26 +57,10 @@ export class UdemyComponent implements OnInit {
   value = 10;
 
   // services
-  accounts = [
-    {
-      name: 'Master Account',
-      status: 'active'
-    },
-    {
-      name: 'Testaccount',
-      status: 'inactive'
-    },
-    {
-      name: 'Hidden Account',
-      status: 'unknown'
-    }
-  ];
+  accounts : {name:string, status: string}[] = [];
+  constructor(private accountService: AccountService) {}
 
-  onAccountAdded(newAccount: {name: string, status: string}) {
-    this.accounts.push(newAccount);
-  }
-
-  onStatusChanged(updateInfo: {id: number, newStatus: string}) {
-    this.accounts[updateInfo.id].status = updateInfo.newStatus;
+  ngOnInit(): void {
+    this.accounts = this.accountService.accounts;
   }
 }

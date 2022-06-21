@@ -1,0 +1,7 @@
+.route-all {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}

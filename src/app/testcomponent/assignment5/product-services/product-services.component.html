@@ -1,15 +1,17 @@
-<div class="pro_all">
-    <div *ngFor="let productCat of productCatName">
-        <div class="product" (click)="showProduct(productCat.category)">
-            <p><b>{{productCat.category}}</b></p>
+<div appMybannercss>
+    <div class="pro_all">
+        <div *ngFor="let productCat of productCatName">
+            <div class="product" (click)="showProduct(productCat.category)">
+                <p><b>{{productCat.category}}</b></p>
+            </div>
         </div>
     </div>
-</div>
-<div *ngIf="toggleProduct" class="toggleProduct">
-    <div class="product_by_cat" *ngFor="let productData of productData1">
-        <h3>{{productData.name}}</h3>
-        <h5>{{productData.price}}</h5>
-        <h5>{{productData.size}}</h5>
-        <h5>{{productData.color}}</h5>
+    <div *ngIf="toggleProduct" class="toggleProduct">
+        <div class="product_by_cat" *ngFor="let productData of productData1">
+            <h3>{{productData.name}}</h3>
+            <h5>{{productData.price}}</h5>
+            <h5>{{productData.size}}</h5>
+            <h5>{{productData.color}}</h5>
+        </div>
     </div>
 </div>

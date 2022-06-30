@@ -1,70 +1,90 @@
 <div class="all">
-  <!-- header -->
-  <app-header></app-header>
 
-  <div class="backing">
-    <h1>HOME</h1>
-  </div>
+  <div class="assign" *ngIf="!assign">
+    <!-- header -->
+    <app-header></app-header>
 
-  <!-- for main content -->
-  <div class="content">
-    <div class="home">
-      <img style="width:150px" src="../assets/images/logo.png"><br><br>
-      <h2>Welcome {{name}} !</h2>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
-        dolor deserunt excepturi explicabo possimus voluptatem animi illum ducimus saepe, corrupti voluptatum molestiae
-        quo,
-        veritatis nam
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
-        dolor deserunt
-      </p>
-      <div>
-        <hr>
-      </div>
+    <div class="backing">
+      <h1>HOME</h1>
     </div>
-    <div class="cards">
-      <div class="software">
-        <img src="/assets/images/3.png" alt="image">
-        <h4>Tree Design</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
-      </div>
-      <div class="software">
-        <img src="/assets/images/2.png" alt="image">
-        <h4>Tree Design</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
-      </div>
-      <div class="software">
-        <img src="/assets/images/1.png" alt="image">
-        <h4>Tree Design</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
-      </div>
-    </div>
-    <br>
+
+
     <hr>
-    <div class="home">
-      <img style="width:150px" src="../assets/images/logo.png"><br><br>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
-        dolor deserunt excepturi explicabo possimus voluptatem animi illum ducimus saepe, corrupti voluptatum molestiae
-        quo,
-        veritatis nam
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam quam
-        dolor deserunt
-      </p>
+    <!-- for main content -->
+    <div class="content">
+      <div class="home">
+        <img style="width:150px" src="../assets/images/logo.png"><br><br>
+        <h2>Welcome {{name}} !</h2>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam
+          quam
+          dolor deserunt excepturi explicabo possimus voluptatem animi illum ducimus saepe, corrupti voluptatum
+          molestiae
+          quo,
+          veritatis nam
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam
+          quam
+          dolor deserunt
+        </p>
+        <div>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="software">
+          <img src="/assets/images/3.png" alt="image">
+          <h4>Tree Design</h4>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
+        </div>
+        <div class="software">
+          <img src="/assets/images/2.png" alt="image">
+          <h4>Tree Design</h4>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
+        </div>
+        <div class="software">
+          <img src="/assets/images/1.png" alt="image">
+          <h4>Tree Design</h4>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit iusto debiti</p>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <div class="home">
+        <img style="width:150px" src="../assets/images/logo.png"><br><br>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam
+          quam
+          dolor deserunt excepturi explicabo possimus voluptatem animi illum ducimus saepe, corrupti voluptatum
+          molestiae
+          quo,
+          veritatis nam
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laudantium omnis consectetur quisquam
+          quam
+          dolor deserunt
+        </p>
+      </div>
     </div>
-  </div>
-  <!-- <app-assignment3></app-assignment3>
+    <!-- <app-assignment3></app-assignment3>
   <br> -->
-  <app-slider></app-slider><br><br>
-  <hr><br>
-  
+    <app-slider></app-slider><br><br>
+
+    <app-tamplate-form-example></app-tamplate-form-example>
+
+
+    <app-form-assignment></app-form-assignment>
+
+  </div>
+
+  <app-test-form3></app-test-form3>
+
   <div class="buttondesign">
     <button (click)="showAssign()">Show</button><button (click)="hideAssign()">Hide</button>
   </div>
-  
+
   <div class="assign" *ngIf="assign">
-    
+
+    <br>
+    <app-reactive-form-example></app-reactive-form-example>
+    <br>
     <!-- Assignments -->
     <app-assignment1></app-assignment1>
     <br>
@@ -80,6 +100,15 @@
 
     <!-- udemy Assignments -->
     <app-udemy></app-udemy>
+    <hr>
+
+    <!-- ppt wxample -->
+    <app-parent></app-parent><br>
+    <hr>
+    <app-view-child></app-view-child><br>
+    <hr>
+    <app-serviesexample></app-serviesexample>
+    <app-test-view-child></app-test-view-child>
     <hr>
 
     <!-- todos app codewithharry -->

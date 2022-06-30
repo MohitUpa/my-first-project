@@ -7,7 +7,7 @@ import { TodosComponent } from './mycomponents/todos/todos.component';
 import { HeaderComponent } from './testcomponent/header/header.component';
 import { FooterComponent } from './testcomponent/footer/footer.component';
 import { Assignment1Component } from './testcomponent/assignment1/assignment1.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UdemyComponent } from './udemy/udemy.component';
 import { HeaderMyAppComponent } from './myApp/header/header.component';
 import { RecipesComponent } from './myApp/recipes/recipes.component';
@@ -50,10 +50,29 @@ import { CanDeactivateGuardService } from './udemy-route/servers/edit-server/can
 import { ErrorPageComponent } from './udemy-route/error-page/error-page.component';
 import { ServerResolver } from './udemy-route/servers/server/server-resolver.service';
 import { ServersService } from './udemy-route/servers/servers.service';
+import { TestDirective } from './directives/test.directive';
+import { ParentComponent } from './data-send-components/input-output/parent/parent.component';
+import { ChildComponent } from './data-send-components/input-output/parent/child/child.component';
+import { ViewChildComponent } from './data-send-components/view-child/view-child.component';
+import { Child1Component } from './data-send-components/view-child/child/child.component';
+import { ServiesexampleComponent } from './data-send-components/serviesexample/serviesexample.component';
+import { Testexaple1Component } from './data-send-components/serviesexample/testexaple1/testexaple1.component';
+import { Testexaple2Component } from './data-send-components/serviesexample/testexaple2/testexaple2.component';
+import { ObservabeExampleComponent } from './udemy/observabe-example/observabe-example.component';
+import { TamplateFormExampleComponent } from './form-handling/tamplate-form-example/tamplate-form-example.component';
+import { ReactiveFormExampleComponent } from './form-handling/reactive-form-example/reactive-form-example.component';
+import { TestViewChildComponent } from './test-view-child/test-view-child.component';
+import { TestViewChildPartComponent } from './test-view-child/test-view-child-part/test-view-child-part.component';
+import { TestForm3Component } from './form-handling/test-form3/test-form3.component';
+import { FormAssignmentComponent } from './form-assignment/form-assignment.component';
+import { ReactiveFromComponent } from './form-assignment/reactive-from/reactive-from.component';
+import { TamplateDrivenFromComponent } from './form-assignment/tamplate-driven-from/tamplate-driven-from.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
   declarations: [
+    Child1Component,
     UserRuteComponent,
     HomeRouteComponent,
     ServersRuoteComponent,
@@ -96,13 +115,32 @@ import { ServersService } from './udemy-route/servers/servers.service';
     UdemyRouteComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
+    TestDirective,
+    ParentComponent,
+    ChildComponent,
+    ViewChildComponent,
+    ServiesexampleComponent,
+    Testexaple1Component,
+    Testexaple2Component,
+    ObservabeExampleComponent,
+    TamplateFormExampleComponent,
+    ReactiveFormExampleComponent,
+    TestViewChildComponent,
+    TestViewChildPartComponent,
+    TestForm3Component,
+    FormAssignmentComponent,
+    ReactiveFromComponent,
+    TamplateDrivenFromComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot()
     // RouterModule.forRoot(appRoutes),
+
   ],
   exports: [
     RecipeItemComponent

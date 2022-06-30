@@ -1,0 +1,146 @@
+<div class="wrapper">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" id="wizard">
+        <!-- SECTION 1 -->
+        <h2></h2>
+        <section>
+            <div class="inner">
+                <div class="image-holder">
+                    <img src="./../../../assets/images/form-wizard-1.jpg" alt="">
+                </div>
+                <div class="form-content">
+                    <div class="form-header">
+                        <h3>Registration</h3>
+                    </div>
+
+                    <p>Please fill right details</p>
+                    <div class="form-row">
+
+                        <div class="form-holder">
+                            <input type="text" placeholder="First Name" class="form-control" ngModel required
+                                name="first_name" #fname="ngModel" pattern="^[a-zA-Z]+$">
+                            <div *ngIf="!fname?.valid && (fname?.dirty || fname?.touched)" style="margin: 2px;">
+                                <div class="alert alert-danger d-flex" role="alert"
+                                    style='font-size:13px;text-align: center;'>
+                                    <div *ngIf="fname.errors['required']">
+                                        First Name is required!!
+                                    </div>
+                                    <div *ngIf="fname.errors['pattern']">
+                                        Invalid First Name!!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-holder">
+                            <input type="text" placeholder="Last Name" class="form-control" ngModel required
+                                name="last_name" #lname="ngModel" pattern="^[a-zA-Z]+$">
+                            <div *ngIf="!lname?.valid && (lname?.dirty || lname?.touched)" style="margin: 2px;">
+                                <div class="alert alert-danger d-flex" role="alert"
+                                    style='font-size:13px;text-align: center;'>
+                                    <div *ngIf="lname.errors['required']">
+                                        last Name is required!!
+                                    </div>
+                                    <div *ngIf="lname.errors['pattern']">
+                                        Invalid last Name!!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-holder">
+                            <input type="text" placeholder="Your Email" class="form-control" ngModel email required
+                                name="email" #email="ngModel">
+                            <div *ngIf="!email?.valid && (email?.dirty || email?.touched)" style="margin: 2px;">
+                                <div class="alert alert-danger d-flex" role="alert"
+                                    style='font-size:13px;text-align: center;'>
+                                    <div *ngIf="email.errors['required']">
+                                        Email is required!!
+                                    </div>
+                                    <div *ngIf="email.errors['email']">
+                                        Invalid Email!!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-holder">
+                            <input type="contect" placeholder="Phone Number" class="form-control" ngModel required
+                                name="phoneNo" minlength="10" maxlength="15" #phone="ngModel" pattern="^[0-9]+[1-9]*$">
+                            <div *ngIf="!phone?.valid && (phone?.dirty || phone?.touched)" style="margin: 2px;">
+                                <div class="alert alert-danger d-flex" role="alert"
+                                    style='font-size:13px;text-align: center;'>
+                                    <div *ngIf="phone.errors['required']">
+                                        Phone No is required!!
+                                    </div>
+                                    <div *ngIf="phone.errors['pattern']">
+                                        Invalid Phone No!!
+                                    </div>
+                                    <div *ngIf="phone.errors['minlength']">
+                                        At least 10 digits required!!
+                                    </div>
+                                    <div *ngIf="phone.errors['maxlength']">
+                                        Maximum 15 digits!!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-holder">
+                            <input type="text" placeholder="Age" class="form-control" ngModel required name="age"
+                                minlength="2" maxlength="4" #age="ngModel" pattern="^[0-9]+[1-9]*$">
+
+                            <div *ngIf="!age?.valid && (age?.dirty || age?.touched)" style="margin: 2px;">
+                                <div class="alert alert-danger d-flex" role="alert" style='font-size:13px;'>
+                                    <div *ngIf="age.errors['required']">
+                                        Age is required!!
+                                    </div>
+                                    <div *ngIf="age.errors['pattern']">
+                                        Invalid age!!
+                                    </div>
+                                    <div *ngIf="age.errors['minlength']">
+                                        At least 2 digits required!!
+                                    </div>
+                                    <div *ngIf="age.errors['maxlength']">
+                                        Maximum 3 digits!!
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-holder" style="align-self: flex-end; transform: translateY(4px);">
+                            <div class="checkbox-tick">
+                                <label class="male">
+                                    <input type="radio" name="gender" value="male" ngModel> Male<br>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="female">
+                                    <input type="radio" name="gender" value="female" ngModel> Female<br>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-circle">
+                        <label>
+                            <input type="checkbox" checked ngModel required name="term">
+                            <span style="margin-left: 20px;">
+                                Accept Term and Conditions.
+                            </span>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div style="text-align:center;">
+                        <button class="btn btn-color" [disabled]="f.invalid">Submit</button>
+                    </div><br>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

@@ -1,7 +1,8 @@
-.myfooter {
+.bg-color {
     color:rgb(255, 255, 255);
     padding: 10px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
     text-align: center;
-    background-color: rgb(2, 100, 7);
+    background-color: rgba(22, 189, 0, 0.466);
+    color: #fff;
 }

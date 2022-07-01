@@ -1,15 +1,25 @@
 .form3 {
-    
+    margin: 20px auto;
+    width: 800px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    padding: 30px;
 }
 
 button {
     margin-left:10px ;
 }
 
-input.ng-invalid.ng-touched {
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
     border: 2px solid red;
 }
 
-input.ng-valid.ng-touched {
-    border: 2px solid green;
+input.ng-valid.ng-touched, textarea.ng-valid.ng-touched, select.ng-valid.ng-touched {
+    border: 2px solid rgba(73, 255, 73, 0.733);
+}
+.multiselect-dropdown.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+.multiselect-dropdown.ng-valid.ng-touched {
+    border: 2px solid rgb(75, 238, 0);
 }

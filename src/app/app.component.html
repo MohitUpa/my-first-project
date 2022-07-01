@@ -1,6 +1,6 @@
 <div class="all">
 
-  <div class="assign" *ngIf="!assign">
+  <div class="assign" *ngIf="assign">
     <!-- header -->
     <app-header></app-header>
 
@@ -74,13 +74,15 @@
 
   </div>
 
-  <app-test-form3></app-test-form3>
+  <div appMybannercss>
+    <app-test-form3></app-test-form3>
+  </div>
 
   <div class="buttondesign">
     <button (click)="showAssign()">Show</button><button (click)="hideAssign()">Hide</button>
   </div>
 
-  <div class="assign" *ngIf="assign">
+  <div class="assign" *ngIf="!assign">
 
     <br>
     <app-reactive-form-example></app-reactive-form-example>

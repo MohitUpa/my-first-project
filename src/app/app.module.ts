@@ -67,8 +67,10 @@ import { TestForm3Component } from './form-handling/test-form3/test-form3.compon
 import { FormAssignmentComponent } from './form-assignment/form-assignment.component';
 import { ReactiveFromComponent } from './form-assignment/reactive-from/reactive-from.component';
 import { TamplateDrivenFromComponent } from './form-assignment/tamplate-driven-from/tamplate-driven-from.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -138,9 +140,11 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgbModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    MatStepperModule,
+     BrowserAnimationsModule 
     // RouterModule.forRoot(appRoutes),
-
   ],
   exports: [
     RecipeItemComponent

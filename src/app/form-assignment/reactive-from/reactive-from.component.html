@@ -1,1 +1,167 @@
-<p>reactive-from works!</p>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Reactive Registration Form
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">
+        ×
+      </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmitR(myForm)">
+      
+      <mat-horizontal-stepper>
+
+        <mat-step label="Step 1">
+          <hr>
+          <div class="step_1">
+
+            <div class="form-outline mb-4">
+              <input type="text" id="name" formControlName="name" class="form-control">
+              <label class="form-label" for="name">Name</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="email" id="email" formControlName="email" class="form-control" />
+              <label class="form-label" for="email">Email</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label" for="gender">Gender</label>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="male"
+                  id="gender" checked />
+                <label class="form-check-label" for="gender"> Male </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="female"
+                  id="gender" />
+                <label class="form-check-label" for="gender">Female </label>
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="date" id="email" formControlName="dob" class="form-control" />
+              <label class="form-label" for="email">Date of Birth</label>
+            </div>
+          </div>
+        </mat-step>
+
+
+        <mat-step label="Step 2">
+          <hr>
+
+          <div class="step_2">
+            <div class="form-outline mb-4">
+              <input type="file" id="prof_img" class="form-control" formControlName="prof_img" />
+              <label class="form-label" for="prof_img">Profile Image</label>
+            </div>
+
+            <div class="form-outline mb-4" formArrayName="hobbies">
+                <label class="form-label" for="hobbies">Hobbies</label>
+                <div class="form-check" *ngFor="let hobby of hobbies">
+                  <input class="form-check-input" type="checkbox" value="{{hobby.label}}" id="flexCheckChecked" 
+                 >
+                  <label class="form-check-label" for="flexCheckChecked">
+                    {{hobby.label}}
+                  </label>
+                </div>
+              </div>
+
+            <div class="form-outline mb-4">
+              <input type="tel" id="contact" class="form-control" formControlName="phone_no" />
+              <label class="form-label" for="contact">Phone No</label>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step label="Step 3">
+          <hr>
+
+          <div class="step_3">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="profession">Profession</label>
+
+
+              <select class="form-select" formControlName="profession">
+                <option selected></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label" for="profession">Qualificaation</label>
+              <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+                 >
+              </ng-multiselect-dropdown>
+
+            </div>
+
+
+            <div class="mb-3">
+              <label for="desc" class="form-label">Description</label>
+              <textarea class="form-control" id="desc" rows="3" formControlName="desc"></textarea>
+            </div>
+
+            <div class="form-outline mb-4" formGroupName="contactPerson">
+
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <label>Contect Person</label><br>
+
+                    <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
+                      <div class="row">
+                        <div class="col-5">
+                          <div class="form-group">
+                            <label>Person Name</label>
+                            <input type="text" class="form-control" 
+                            formControlName="person_name">
+                          </div>
+                        </div>
+                        <div class="col-5">
+                          <div class="form-group">
+                            <label>Person Number</label>
+                            <input type="tel" class="form-control" 
+                            formControlName="person_no">
+                          </div>
+                        </div>
+                        <div class="col-2 text-right">
+                          <label>Remove</label>
+                          <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
+                        </div>
+                      </div>
+
+                    </section>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
+                  </div>
+                </div>
+
+            </div>
+
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+
+
+    </form>
+  </div>
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+  Reactive Form
+</button>

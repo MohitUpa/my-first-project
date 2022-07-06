@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { UserDataService } from 'src/app/user-data.service';
 
 
 @Component({
@@ -19,55 +20,74 @@ export class ReactiveFromComponent implements OnInit {
     { label: 'Fighting', selected: false }
   ];
 
+  userInfo;
+  stepdata1 = true;
+
 
   dropdownList = [];
-  dropdownSettings:IDropdownSettings={};
- 
+  dropdownSettings: IDropdownSettings = {};
+
   ngOnInit() {
+    this.stepdata1 = true;
     this.dropdownList = [
-      "Graduation","post Graduation"
+      "Graduation", "post Graduation"
     ];
     this.dropdownSettings = {};
 
     this.myForm = new FormGroup({
-      name: new FormControl(null,Validators.required),
-      email: new FormControl(null,[Validators.required,Validators.email]),
-      gender: new FormControl(null,Validators.required),
-      dob: new FormControl(null,Validators.required),
-      prof_img: new FormControl(null,Validators.required),
-      hobbies: new FormArray([]),
-      phone_no: new FormControl(null,Validators.required),
-      profession: new FormControl(null,Validators.required),
-      desc: new FormControl(null,Validators.required),
-      // qualification: new FormArray([]),
+      name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      gender: new FormControl(null, Validators.required),
+      dob: new FormControl(null, Validators.required),
+      prof_img: new FormControl(null, Validators.required),
+      hobbies: new FormGroup({
+        Singing: new FormControl(),
+        Dancing: new FormControl(),
+        Playing: new FormControl(),
+        Fighting: new FormControl(),
+      }),
+      phone_no: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+      profession: new FormControl(null, Validators.required),
+      desc: new FormControl(null, Validators.required),
+      qualification: new FormControl(null, Validators.required),
       contactPerson: new FormGroup({
-        person_name:new FormControl(null,Validators.required),
-        person_no:new FormControl(null,Validators.required),
+        person_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+        person_no: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
       })
     });
-  }
 
+    this.userInfo = this.userDataingo.userDataInfo;
+  }
+  idval = 1000;
   myForm: FormGroup;
 
   onSubmitR(form: FormGroup) {
-    console.log(form.value);
-    console.log(form);
+    this.userInfo = this.userDataingo.userDataInfo.push({ id: this.idval++, form: 'reactive', data: form.value });
+    alert('thankyou for registring');
+    this.myForm.reset();
+    this.stepdata1 = false;
   }
 
   closeResult = '';
-  
-  constructor(private modalService: NgbModal) {}
-  
-  open(content) {
-    this.modalService.open(content,
-   {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = 
-         `Dismissed ${this.getDismissReason(reason)}`;
+
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService) {
+    this.myForm = this.fb.group({
+      checkArray: this.fb.array([], [Validators.required]),
     });
   }
-  
+
+  open(content) {
+    this.stepdata1 = true;
+
+    this.modalService.open(content,
+      { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult =
+          `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -80,15 +100,15 @@ export class ReactiveFromComponent implements OnInit {
 
   public contectPerson: any[] = [{
     id: 1,
-    personName:'',
-    personNumber:''
+    personName: '',
+    personNumber: ''
   }];
 
   addPerson() {
     this.contectPerson.push({
       id: this.contectPerson.length + 1,
-      personName:'',
-      personNumber:''
+      personName: '',
+      personNumber: ''
     });
   }
 

@@ -1,159 +1,165 @@
+<div *ngIf="!onEdit"> 
 <ng-template #content let-modal>
-  <div (focusout)="focusOutFunction($event)">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">
-        Tamplate Driven Registration Form
-      </h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">
-          ×
-        </span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form (ngSubmit)="onSubmit(tamplateForm)" #tamplateForm="ngForm">
-        <mat-horizontal-stepper>
-          <div class="step_1" ngModelGroup="firstPage">
-            <mat-step label="Step 1">
-              <hr>
-
-              <div class="form-outline mb-4">
-                <input type="text" id="name" name="name" ngModel class="form-control" value="{{name}}" #name="ngModel"
-                  pattern="^[a-zA-Z ]+$" required>
-                <label class="form-label" for="name">Name</label>
-              </div>
-
-              <div class="form-outline mb-4">
-                <input type="email" id="email" name="email" ngModel class="form-control" required email />
-                <label class="form-label" for="email">Email</label>
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label" for="gender">Gender</label>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked
-                    [(ngModel)]="gender" />
-                  <label class="form-check-label" for="gender"> Male </label>
+  <div *ngIf="stepdata">
+    <div (focusout)="focusOutFunction($event)">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          Tamplate Driven Registration Form
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">
+            ×
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit(tamplateForm)" #tamplateForm="ngForm">
+          <mat-horizontal-stepper>
+            <div class="step_1">
+              <mat-step label="Step 1">
+                <hr>
+                <div class="form-outline mb-4">
+                  <input type="text" id="name" name="name" ngModel class="form-control" #name="ngModel"
+                    pattern="^[a-zA-Z ]+$" required>
+                  <label class="form-label" for="name">Name</label>
                 </div>
 
-                <div class="form-check">
-                  <input class="form-check-input" ngModel type="radio" name="gender" value="female" id="gender"
-                    [(ngModel)]="gender" />
-                  <label class="form-check-label" for="gender">Female </label>
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" name="email" ngModel class="form-control" required email />
+                  <label class="form-label" for="email">Email</label>
                 </div>
-              </div>
 
-              <div class="form-outline mb-4">
-                <input type="date" id="email" name="dob" ngModel class="form-control" required />
-                <label class="form-label" for="email">Date of Birth</label>
-              </div>
-            </mat-step>
-          </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="gender">Gender</label>
 
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked
+                      [(ngModel)]="gender" />
+                    <label class="form-check-label" for="gender"> Male </label>
+                  </div>
 
-          <div class="step_2" ngModelGroup="secondPage">
-            <mat-step label="Step 2">
-              <hr>
-
-              <div class="form-outline mb-4">
-                <input type="file" id="prof_img" class="form-control" name="prof_img" ngModel required />
-                <label class="form-label" for="prof_img">Profile Image</label>
-              </div>
-
-              <div class="form-outline mb-4" ngModelGroup="hobbies">
-                <label class="form-label" for="hobbies">Hobbies</label>
-                <div class="form-check" *ngFor="let hobby of hobbies">
-                  <input class="form-check-input" type="checkbox" value="music" id="flexCheckChecked"
-                    name="{{hobby.label}}" [(ngModel)]="hobby.selected">
-                  <label class="form-check-label" for="flexCheckChecked">
-                    {{hobby.label}}
-                  </label>
-                </div>
-              </div>
-
-              <div class="form-outline mb-4">
-                <input type="tel" id="contact" class="form-control" name="phone_no" ngModel #phone="ngModel" required
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
-                <label class="form-label" for="contact">Phone No</label>
-              </div>
-            </mat-step>
-          </div>
-
-          <div class="step_3" ngModelGroup="thirdPage">
-            <mat-step label="Step 3">
-              <hr>
-
-              <div class="form-outline mb-4">
-                <label class="form-label" for="profession">Profession</label>
-
-
-                <select class="form-select" name="profession" ngModel required>
-                  <option selected></option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label" for="profession">Qualificaation</label>
-                <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
-                  ngModel required>
-                </ng-multiselect-dropdown>
-
-              </div>
-
-              <div class="mb-3">
-                <label for="desc" class="form-label">Description</label>
-                <textarea class="form-control" id="desc" rows="3" name="desc" ngModel required></textarea>
-              </div>
-
-              <div class="form-outline mb-4" ngModelGroup="contactPerson">
-
-                <div class="row justify-content-center">
-                  <div class="col-12">
-                    <label>Contect Person</label><br>
-
-                    <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="form-group">
-                            <label>Person Name</label>
-                            <input type="text" class="form-control" [(ngModel)]="person.personName"
-                              name="personName_{{person.id}}" required>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="form-group">
-                            <label>Person Number</label>
-                            <input type="text" class="form-control" [(ngModel)]="person.personNumber"
-                              name="phoneNo_{{person.id}}" required>
-                          </div>
-                        </div>
-                        <div class="col-2 text-right">
-                          <label>Remove</label>
-                          <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
-                        </div>
-                      </div>
-
-                    </section>
-                    <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
+                  <div class="form-check">
+                    <input class="form-check-input" ngModel type="radio" name="gender" value="female" id="gender"
+                      [(ngModel)]="gender" />
+                    <label class="form-check-label" for="gender">Female </label>
                   </div>
                 </div>
 
-              </div>
+                <div class="form-outline mb-4">
+                  <input type="date" id="email" name="dob" ngModel class="form-control" required />
+                  <label class="form-label" for="email">Date of Birth</label>
+                </div>
+              </mat-step>
+            </div>
 
-              <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-block mb-4"
-                  [disabled]="tamplateForm.invalid">Submit</button>
-              </div>
-            </mat-step>
-          </div>
-        </mat-horizontal-stepper>
-      </form>
+
+            <div class="step_2">
+              <!-- <div *ngIf="firstPage.valid"> -->
+              <mat-step label="Step 2">
+                <hr>
+                <div class="form-outline mb-4">
+                  <input type="file" id="prof_img" class="form-control" name="prof_img" ngModel required />
+                  <label class="form-label" for="prof_img">Profile Image</label>
+                </div>
+
+                <div class="form-outline mb-4" ngModelGroup="hobbies">
+                  <label class="form-label" for="hobbies">Hobbies</label>
+                  <div class="form-check" *ngFor="let hobby of hobbies">
+                    <input class="form-check-input" type="checkbox" value=" {{hobby.label}}" id="flexCheckChecked"
+                      name="{{hobby.label}}" [(ngModel)]="hobby.selected">
+                    <label class="form-check-label" for="flexCheckChecked">
+                      {{hobby.label}}
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="tel" id="contact" class="form-control" name="phone_no" ngModel #phone="ngModel" required
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+                  <label class="form-label" for="contact">Phone No</label>
+                </div>
+              </mat-step>
+            </div>
+            <!-- </div> -->
+
+            <div class="step_3">
+              <mat-step label="Step 3">
+                <hr>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="profession">Profession</label>
+
+
+                  <select class="form-select" name="profession" ngModel required>
+                    <option selected></option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="qualification">Qualificaation</label>
+                  <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+                    ngModel required>
+                  </ng-multiselect-dropdown>
+
+                </div>
+
+                <div class="mb-3">
+                  <label for="desc" class="form-label">Description</label>
+                  <textarea class="form-control" id="desc" rows="3" name="desc" ngModel required></textarea>
+                </div>
+
+                <div class="form-outline mb-4" ngModelGroup="contactPerson">
+
+                  <div class="row justify-content-center">
+                    <div class="col-12">
+                      <label>Contect Person</label><br>
+
+                      <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
+                        <div class="row">
+                          <div class="col-5">
+                            <div class="form-group">
+                              <label>Person Name</label>
+                              <input type="text" class="form-control" [(ngModel)]="person.personName"
+                                name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$" required>
+                            </div>
+                          </div>
+                          <div class="col-5">
+                            <div class="form-group">
+                              <label>Person Number</label>
+                              <input type="text" class="form-control" [(ngModel)]="person.personNumber"
+                                name="phoneNo_{{person.id}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                            </div>
+                          </div>
+                          <div class="col-2 text-right">
+                            <label>Remove</label>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
+                          </div>
+                        </div>
+
+                      </section>
+                      <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-block mb-4"
+                    [disabled]="tamplateForm.invalid">Submit</button>
+                </div>
+              </mat-step>
+            </div>
+            <div>
+
+            </div>
+          </mat-horizontal-stepper>
+        </form>
+      </div>
     </div>
   </div>
 </ng-template>
@@ -162,5 +168,148 @@
   Tamplate Driven Form
 </button>
 
-
 <app-reactive-assign-from></app-reactive-assign-from>
+
+</div>
+
+<br><br>
+
+<div >
+  <form (ngSubmit)="saveData(tamplateForm1)" #tamplateForm1="ngForm">
+    <div *ngIf="!onEdit">
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Edit/Delete</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Hobbies</th>
+            <th>Phone No</th>
+            <th>Qualification</th>
+            <th>Profession</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let infodata of userInfo">
+            <td>
+              <div *ngIf="!onEdit">
+                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit</button>&nbsp;
+                <button type="button" class="btn btn-danger" (click)="deleteData(infodata)">Delete</button>
+              </div>
+            </td>
+
+            <td>
+              <div *ngIf="!onEdit">{{infodata.data.name}}</div>
+            </td>
+            <td>
+              <div *ngIf="!onEdit">
+                {{infodata.data.email}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="!onEdit">
+
+                {{infodata.data.gender}}</div>
+
+            </td>
+            <td>
+              <div *ngIf="!onEdit">
+                {{infodata.data.dob}}</div>
+            </td>
+
+            <td>
+              <div *ngIf="!onEdit">
+                <div *ngFor="let hobby of infodata.data.hobbies | keyvalue">
+                  <div *ngIf="hobby.value">
+                    {{hobby.key}},
+                  </div>
+                </div>
+              </div>
+
+            </td>
+
+            <td>
+              <div *ngIf="!onEdit">
+                {{infodata.data.phone_no}}</div>
+            </td>
+            <td>
+              <div *ngIf="!onEdit">
+                {{infodata.data.qualification}}</div>
+
+            </td>
+            <td>
+              <div *ngIf="!onEdit">
+                {{infodata.data.profession}}</div>
+
+            </td>
+            <td>
+              {{infodata.data.desc}}
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="onEdit" class="editForm">
+      <div class="mb-3">
+        <input type="hidden" name="id" [(ngModel)]="oldId">
+        <input type="text" class="form-control" id="name" name="name" pattern="^[a-zA-Z ]+$" required
+          [(ngModel)]="oldName">
+      </div>
+      <div class="mb-3">
+
+        <input type="text" class="form-control" [(ngModel)]="oldEmail" required name="email" email>
+      </div>
+
+      <input type="radio" class="form-check-input" name="gender" value="male" id="gender" checked
+        [(ngModel)]="oldGender" />Male
+
+      <input ngModel class="form-check-input" type="radio" name="gender" value="female" id="gender"
+        [(ngModel)]="oldGender" />Female
+      <br>
+
+      <input type="date" class="form-control" [(ngModel)]="oldDob" required name="dob">
+      <br>
+
+      <div class="form-outline mb-4" ngModelGroup="hobbies">
+        <div class="form-check" *ngFor="let hobby of oldHobbies|keyvalue">
+          <input type="checkbox" class="form-check-input" value=" {{hobby.key}}" id="flexCheckChecked"
+            name="{{hobby.key}}" [(ngModel)]="hobby.value">
+          <label class="form-check-label" for="flexCheckChecked">
+            {{hobby.key}}
+          </label>
+        </div>
+      </div>
+      <br>
+
+      <input type="tel" class="form-control" id="contact" name="phone_no" [(ngModel)]="oldPhone_no" required
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+      <br>
+
+      <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+        [(ngModel)]="oldQualification" required>
+      </ng-multiselect-dropdown>
+      <br>
+
+      <select class="form-select" name="profession" [(ngModel)]="oldProfession" required>
+        <option selected></option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <br>
+      <div class="col-8">
+        <textarea class="form-control" id="desc" rows="3" name="desc" [(ngModel)]="oldDesc" required></textarea>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success" [disabled]="tamplateForm1.invalid">Save</button>
+    </div>
+  </form>
+</div>

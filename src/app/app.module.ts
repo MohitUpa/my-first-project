@@ -1,5 +1,8 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,7 +73,6 @@ import { TamplateDrivenFromComponent } from './form-assignment/tamplate-driven-f
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatStepperModule } from '@angular/material/stepper';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -136,14 +138,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule,
     NgMultiSelectDropDownModule.forRoot(),
     MatStepperModule,
-     BrowserAnimationsModule 
+     BrowserAnimationsModule,
+     NgxIntlTelInputModule, 
+     TooltipModule.forRoot()
     // RouterModule.forRoot(appRoutes),
   ],
   exports: [

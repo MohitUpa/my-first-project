@@ -11,6 +11,6 @@ export class MybannercssDirective {
     el.nativeElement.style.textAlign="center";
     el.nativeElement.style.padding="20px";
     el.nativeElement.style.margin="auto";
-    el.nativeElement.style.width="60%";
+    el.nativeElement.style.width="100%";
   }
 }

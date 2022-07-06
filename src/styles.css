@@ -1,9 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Joan&display=swap');
+
 * {
     font-family: 'Joan', serif;
 }
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.modal {
+    transform: translate(-6%,0%);
+
+
+}
+.modal-content {
+    width: 1200px;
+    
+}
+
+.modal-body {
+    background-color: #fff;
+    border:2px solid #000;
+    width: 1200px;
+}
+
+
+
+.modal-header {
+    background-color: #fff;
+    border:2px solid #000;
+    width: 1200px;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+
+  .modal-backdrop.fade.show {
+    display: none;
+  }
+
+  .disable {
+    pointer-events: none; opacity: 2.0;
+}

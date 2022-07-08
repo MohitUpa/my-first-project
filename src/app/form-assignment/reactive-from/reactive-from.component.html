@@ -11,13 +11,13 @@
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="myForm" (ngSubmit)="onSubmitR(myForm)">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmitR()">
 
         <mat-horizontal-stepper>
 
           <mat-step label="Step 1">
             <hr>
-            <div class="step_1">
+            <div class="step_1" formGroupName="firstPage">
 
               <div class="form-outline mb-4">
                 <input type="text" id="name" formControlName="name" class="form-control">
@@ -50,10 +50,14 @@
                 <label class="form-label" for="email">Date of Birth</label>
               </div>
             </div>
+            <button type="button" [disabled]="myForm.get('firstPage').invalid" class="btn btn-danger mx-3" mat-button
+              matStepperNext>
+              Next
+            </button>
           </mat-step>
 
 
-          <mat-step label="Step 2">
+          <mat-step label="Step 2" formGroupName="secondPage">
 
             <hr>
 
@@ -63,25 +67,63 @@
                 <label class="form-label" for="prof_img">Profile Image</label>
               </div>
 
+              <!-- hobby -->
+              <!-- 
               <div class="form-outline mb-4" formGroupName="hobbies">
                 <label class="form-label" for="hobbies">Hobbies</label>
                 <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
                   <input class="form-check-input" type="checkbox" formControlName="{{hobby.label}}"
-                    value="hobby.selected" id="flexCheckChecked">
+                  value="hobby.selected" id="flexCheckChecked">
                   <label class="form-check-label" for="flexCheckChecked">
                     {{hobby.label}}
                   </label>
                 </div>
+              </div> -->
+
+              <!-- test hobby -->
+              <div class="hobbysap">
+                <div *ngIf="!hobbyInput">
+                  <div class="form-outline mb-4 me-5" formGroupName="hobbies">
+                    <label class="form-label" for="hobbies">Hobbies</label>
+                    <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
+                      <input class="form-check-input" type="checkbox" formControlName="{{hobby.label}}"
+                        value="hobby.selected" id="flexCheckChecked">
+                      <label class="form-check-label" for="flexCheckChecked">
+                        {{hobby.label}}
+                      </label>
+                    </div>
+                    <button type="button" class="btn btn-secondary" (click)="onHobby()">add hobby</button>
+                  </div>
+                </div>
+                <div *ngIf="hobbyInput">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="hobby">Your Hobby</label>
+                    <input type="text" id="name" class="form-control" #addedHobby pattern="^[a-zA-Z ]+$" required>
+                  </div>
+                  <button type="button" [disabled]="addedHobby.value == ''" class="btn btn-primary"
+                    (click)="onAddHobby(addedHobby)">add</button> &nbsp;
+                  <button type="button" class="btn btn-danger" (click)="onCancelHobby()">close</button>
+                </div>
               </div>
 
-              <div class="form-outline mb-4">
-                <input type="tel" id="contact" class="form-control" formControlName="phone_no" />
+              <div class="form-outline mb-4" formGroupName="phone_no">
                 <label class="form-label" for="contact">Phone No</label>
+                <input type="text" class="input-mini" formControlName="p1" placeholder="123">
+                <input type="text" class="input-mini" formControlName="p2" placeholder="456">
+                <input type="text" class="input-mini" formControlName="p3" placeholder="7890"><br>
               </div>
+
             </div>
+            <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+              Previous
+            </button>
+            <button type="button" [disabled]="myForm.get('secondPage').invalid" class="btn btn-danger mx-3" mat-button
+              matStepperNext>
+              Next
+            </button>
           </mat-step>
 
-          <mat-step label="Step 3">
+          <mat-step label="Step 3" formGroupName="thirdPage">
             <hr>
 
             <div class="step_3">
@@ -91,11 +133,11 @@
 
                 <select class="form-select" formControlName="profession">
                   <option selected></option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="Data Scientist">Data Scientist</option>
+                      <option value="Software Developer">Software Developer</option>
+                      <option value="Web Developer">Web Developer</option>
+                      <option value="Sales Engineer">Sales Engineer </option>
+                      <option value="Computer Support Specialists">Computer Support Specialists</option>
                 </select>
               </div>
 
@@ -124,13 +166,13 @@
                         <div class="col-5">
                           <div class="form-group">
                             <label>Person Name</label>
-                            <input type="text" class="form-control" formControlName="person_name">
+                            <input type="text" class="form-control" placeholder="Ex: Mike Johnson" formControlName="personName">
                           </div>
                         </div>
                         <div class="col-5">
                           <div class="form-group">
                             <label>Person Number</label>
-                            <input type="tel" class="form-control" formControlName="person_no">
+                            <input type="tel" class="form-control" formControlName="phoneNo">
                           </div>
                         </div>
                         <div class="col-2 text-right">
@@ -150,6 +192,9 @@
             <div class="d-flex justify-content-center">
               <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="myForm.invalid">Submit</button>
             </div>
+            <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+              Previous
+            </button>
           </mat-step>
         </mat-horizontal-stepper>
 
@@ -163,3 +208,7 @@
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
   Reactive Form
 </button>
+
+<h2>Edit Mode</h2>
+
+

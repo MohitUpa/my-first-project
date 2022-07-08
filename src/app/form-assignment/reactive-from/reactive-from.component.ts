@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
@@ -12,13 +12,46 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class ReactiveFromComponent implements OnInit {
 
+  myForm: FormGroup;
   gender: string;
+
+  // hobby
   hobbies = [
     { label: 'Singing', selected: false },
     { label: 'Dancing', selected: false },
     { label: 'Playing', selected: false },
-    { label: 'Fighting', selected: false }
+    { label: 'Fighting', selected: false },
   ];
+
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService) {
+    this.myForm = this.fb.group({
+      checkArray: this.fb.array([], [Validators.required]),
+    });
+
+  }
+
+  hobbieControls = {
+    Singing: new FormControl(),
+    Dancing: new FormControl(),
+    Playing: new FormControl(),
+    Fighting: new FormControl(),
+  }
+
+  addedhob = [];
+  hobbyInput = false;
+  onHobby() {
+    this.hobbyInput = true;
+  }
+  onAddHobby(hobby) {
+    this.hobbies.push({ label: hobby.value, selected: false },)
+    this.hobbieControls[hobby.value] = new FormControl();
+    this.addedhob.push(hobby.value);
+    this.hobbyInput = false;
+  }
+  onCancelHobby() {
+    this.hobbyInput = false;
+  }
+
 
   userInfo;
   stepdata1 = true;
@@ -28,6 +61,8 @@ export class ReactiveFromComponent implements OnInit {
   dropdownSettings: IDropdownSettings = {};
 
   ngOnInit() {
+
+  
     this.stepdata1 = true;
     this.dropdownList = [
       "Graduation", "post Graduation"
@@ -35,50 +70,77 @@ export class ReactiveFromComponent implements OnInit {
     this.dropdownSettings = {};
 
     this.myForm = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      gender: new FormControl(null, Validators.required),
-      dob: new FormControl(null, Validators.required),
-      prof_img: new FormControl(null, Validators.required),
-      hobbies: new FormGroup({
-        Singing: new FormControl(),
-        Dancing: new FormControl(),
-        Playing: new FormControl(),
-        Fighting: new FormControl(),
+      firstPage: new FormGroup({
+        name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        gender: new FormControl(null, Validators.required),
+        dob: new FormControl(null, Validators.required),
       }),
-      phone_no: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
-      profession: new FormControl(null, Validators.required),
-      desc: new FormControl(null, Validators.required),
-      qualification: new FormControl(null, Validators.required),
-      contactPerson: new FormGroup({
-        person_name: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
-        person_no: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+      secondPage: new FormGroup({
+        prof_img: new FormControl(null, Validators.required),
+        hobbies: new FormGroup(this.hobbieControls),
+        phone_no: new FormGroup({
+          p1: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$'), Validators.maxLength(3)]),
+          p2: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$'), Validators.maxLength(3)]),
+          p3: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{4}$'), Validators.maxLength(4)]),
+        })
+      }),
+      thirdPage: new FormGroup({
+        profession: new FormControl(null, Validators.required),
+        desc: new FormControl(null, Validators.required),
+        qualification: new FormControl(null, Validators.required),
+        contactPerson: new FormGroup({
+          personName: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+          phoneNo: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+        })
       })
     });
 
     this.userInfo = this.userDataingo.userDataInfo;
   }
   idval = 1000;
-  myForm: FormGroup;
 
-  onSubmitR(form: FormGroup) {
-    this.userInfo = this.userDataingo.userDataInfo.push({ id: this.idval++, form: 'reactive', data: form.value });
-    alert('thankyou for registring');
-    this.myForm.reset();
+  onSubmitR() {
+    console.log("reactive form data");
+
+    console.log(this.hobbieControls);
+
+    console.log(this.myForm.value);
+
+    for (var hobby in this.myForm.value.secondPage.hobbies) {
+      for (let hob of this.addedhob) {
+        if (hobby == hob) {
+          if (this.myForm.value.secondPage.hobbies[hobby] == null) {
+            delete this.myForm.value.secondPage.hobbies[hobby]
+          }
+        }
+      }
+    }
+
+    if (this.myForm.valid) {
+      this.userInfo = this.userDataingo.userDataInfo.push({ id: this.idval++, form: 'reactive', data: this.myForm.value });
+      alert('thankyou for registring');
+      for (let hob of this.addedhob) {
+        for (var hobby in this.hobbies) {
+          const test = this.hobbies[hobby];
+          if (test.label == hob) {
+            this.hobbies.splice(+hobby, 1);
+            console.log(this.hobbies);
+          }
+        }
+      } 
+      this.myForm.reset();     
+    }
     this.stepdata1 = false;
   }
 
-  closeResult = '';
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService) {
-    this.myForm = this.fb.group({
-      checkArray: this.fb.array([], [Validators.required]),
-    });
-  }
+
+  closeResult = '';
 
   open(content) {
     this.stepdata1 = true;
-
+    
     this.modalService.open(content,
       { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -115,5 +177,6 @@ export class ReactiveFromComponent implements OnInit {
   removePerson(i: number) {
     this.contectPerson.splice(i, 1);
   }
+
 
 }

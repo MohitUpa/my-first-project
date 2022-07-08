@@ -50,20 +50,32 @@ select.ng-valid.ng-touched {
 }
 
 .disable {
-    pointer-events: none; opacity: 2.0;
+    pointer-events: none;
+    opacity: 2.0;
 }
 
-td input,select,textarea {
+td input,
+select,
+textarea {
     width: 150px;
 }
 
 .spacebtw {
-    width:340px
+    width: 400px
 }
 
 .editForm {
     margin: 0 auto;
     padding: 20px;
     border: 1px solid lightgray;
-    width:500px;
+    width: 500px;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+.input-mini {
+    width: 50px;
+    margin: 10px;
 }

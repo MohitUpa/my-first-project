@@ -43,7 +43,6 @@ body {
 ::ng-deep .mat-horizontal-stepper-header{
     pointer-events: none !important;
   }
-
   .modal-backdrop.fade.show {
     display: none;
   }

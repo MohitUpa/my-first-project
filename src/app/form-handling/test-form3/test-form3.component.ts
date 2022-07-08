@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
@@ -11,15 +11,7 @@ import { UserDataService } from 'src/app/user-data.service';
   styleUrls: ['./test-form3.component.css']
 })
 export class TestForm3Component implements OnInit {
-  @ViewChild('firstPage') test;
 
-  gender: string;
-  hobbies = [
-    { label: 'Singing', selected: false },
-    { label: 'Dancing', selected: false },
-    { label: 'Playing', selected: false },
-    { label: 'Fighting', selected: false }
-  ];
 
   dropdownList = [];
   dropdownSettings: IDropdownSettings = {};
@@ -27,6 +19,7 @@ export class TestForm3Component implements OnInit {
   stepdata = true;
   editData;
 
+  editOn;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService) { }
 
@@ -36,44 +29,8 @@ export class TestForm3Component implements OnInit {
     ];
     this.dropdownSettings = {};
     this.userInfo = this.userdatainfo.userDataInfo;
-  }
-  idval = 1
-
-  objectKeys = Object.keys;
-  onSubmit(formData: NgForm) {
-    console.log(formData.value);
-    this.userdatainfo.userDataInfo.push({ id: this.idval++, form: 'tamplate', data: formData.value });
-    alert('thankyou for registring');
-    this.userInfo = this.userdatainfo.userDataInfo;
-    this.stepdata = false;
-  }
-
-
-  //fancybox code 
-  closeResult = '';
-  open(content) {
-    this.stepdata = true;
-    this.modalService.open(content,
-      { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult =
-          `Dismissed ${this.getDismissReason(reason)}`;
-      });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  focusOutFunction(e) {
-    // alert('Are Sure you want to the Form?')
+    console.log(this.userdatainfo.userDataInfo);
+    
   }
 
   // Edit form Code
@@ -93,36 +50,47 @@ export class TestForm3Component implements OnInit {
   oldPhoneNo;
   oldContect;
   oldHobbies;
+  oldP1;
+  oldP2;
+  oldP3;
   onEdit = false;
   edit(data) {
+    
     this.oldId = data.id;
-    this.oldName = data.data.name;
-    this.oldEmail = data.data.email;
-    this.oldGender = data.data.gender;
-    this.oldDob = data.data.dob;
-    this.oldHobbies = data.data.hobbies;    
-    this.oldPhone_no = data.data.phone_no;
-    this.oldQualification = data.data.qualification;
-    this.oldProfession = data.data.profession;
-    this.oldDesc = data.data.desc;
-    this.oldContect = data.data.contactPerson;
+    this.oldName = data.data.firstPage.name;
+    this.oldEmail = data.data.firstPage.email;
+    this.oldGender = data.data.firstPage.gender;
+    this.oldDob = data.data.firstPage.dob;
+    this.oldHobbies = data.data.secondPage.hobbies; 
+    
+    this.oldP1 = data.data.secondPage.phone_no.p1;
+    this.oldP2 = data.data.secondPage.phone_no.p2;
+    this.oldP3 = data.data.secondPage.phone_no.p3;
+    console.log(this.oldPhone_no);
+    this.oldQualification = data.data.thirdPage.qualification;
+    this.oldProfession = data.data.thirdPage.profession;
+    this.oldDesc = data.data.thirdPage.desc;
+    this.oldContect = data.data.thirdPage.contactPerson;
     this.onEdit = true;
   }
   saveData(data) {
     this.objIndex = this.userdatainfo.userDataInfo.findIndex((obj => obj.id == data.value.id));
-    this.userdatainfo.userDataInfo[this.objIndex].data.name = data.value.name;
-    this.userdatainfo.userDataInfo[this.objIndex].data.email = data.value.email;
-    this.userdatainfo.userDataInfo[this.objIndex].data.gender = data.value.gender;
-    this.userdatainfo.userDataInfo[this.objIndex].data.dob = data.value.dob;
-    this.userdatainfo.userDataInfo[this.objIndex].data.hobbies = data.value.hobbies;
-    this.userdatainfo.userDataInfo[this.objIndex].data.phone_no = data.value.phone_no;
-    this.userdatainfo.userDataInfo[this.objIndex].data.qualification = data.value.qualification;
-    this.userdatainfo.userDataInfo[this.objIndex].data.profession = data.value.profession;
-    this.userdatainfo.userDataInfo[this.objIndex].data.desc = data.value.desc;
+    this.userdatainfo.userDataInfo[this.objIndex].data.firstPage.name = data.value.name;
+    this.userdatainfo.userDataInfo[this.objIndex].data.firstPage.email = data.value.email;
+    this.userdatainfo.userDataInfo[this.objIndex].data.firstPage.gender = data.value.gender;
+    this.userdatainfo.userDataInfo[this.objIndex].data.firstPage.dob = data.value.dob;
+    this.userdatainfo.userDataInfo[this.objIndex].data.secondPage.hobbies = data.value.hobbies;
+    this.userdatainfo.userDataInfo[this.objIndex].data.secondPage.phone_no = data.value.phone_no;
+    this.userdatainfo.userDataInfo[this.objIndex].data.thirdPage.qualification = data.value.qualification;
+    this.userdatainfo.userDataInfo[this.objIndex].data.thirdPage.profession = data.value.profession;
+    this.userdatainfo.userDataInfo[this.objIndex].data.thirdPage.desc = data.value.desc;
     this.onEdit = false;
   }
 
-
+  editReactive(reactiveEditData) {
+      console.log();
+      this.editOn = {editStart:true,editData:reactiveEditData};  
+  }
 
   // contact person code
   public contectPerson: any[] = [{
@@ -132,11 +100,6 @@ export class TestForm3Component implements OnInit {
   },];
 
   addPerson() {
-    this.contectPerson.push({
-      id: this.contectPerson.length + 1,
-      personName: '',
-      personNumber: ''
-    });
     this.oldContect.push({
       id: this.contectPerson.length + 1,
       personName: '',
@@ -145,7 +108,6 @@ export class TestForm3Component implements OnInit {
   }
 
   removePerson(i: number) {
-    this.contectPerson.splice(i, 1);
     this.oldContect.splice(i, 1);
   }
 

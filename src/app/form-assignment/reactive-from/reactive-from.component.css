@@ -23,3 +23,16 @@ input.ng-valid.ng-touched, textarea.ng-valid.ng-touched, select.ng-valid.ng-touc
 .multiselect-dropdown.ng-valid.ng-touched {
     border: 2px solid rgb(75, 238, 0);
 }
+
+
+
+.hobbysap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
+  .input-mini {
+    width:50px;
+    margin: 10px;
+  }

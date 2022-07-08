@@ -1,1 +1,207 @@
-<p>tamplate-driven-from works!</p>
+<div *ngIf="!onEdit">
+  <ng-template #content let-modal>
+    <div *ngIf="stepdata">
+      <div (focusout)="focusOutFunction($event)">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">
+            Tamplate Driven Registration Form
+          </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">
+              ×
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit(tamplateForm)" #tamplateForm="ngForm">
+            <mat-horizontal-stepper>
+              <div class="step_1">
+                <mat-step label="Step 1" ngModelGroup="firstPage" #firstPage="ngModelGroup">
+                  <hr>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="name" name="name" ngModel class="form-control" #name="ngModel"
+                      pattern="^[a-zA-Z ]+$" required placeholder="Ex: Mikal Johnson ">
+                    <label class="form-label" for="name">Name</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="email" id="email" name="email" ngModel class="form-control" required email placeholder="Ex: example@gmail.com" />
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="gender">Gender</label>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked required
+                        [(ngModel)]="gender" />
+                      <label class="form-check-label" for="gender"> Male </label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" ngModel type="radio" name="gender" value="female" id="gender"
+                        [(ngModel)]="gender" required/>
+                      <label class="form-check-label" for="gender">Female </label>
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="date" id="email" name="dob" ngModel class="form-control" required />
+                    <label class="form-label" for="email">Date of Birth</label>
+                  </div>
+
+
+                  <button type="button" [disabled]="firstPage.invalid" class="btn btn-info mx-3" mat-button
+                    matStepperNext>
+                    Next
+                  </button>
+                </mat-step>
+              </div>
+
+
+              <div class="step_2">
+                <!-- <div *ngIf="firstPage.valid"> -->
+                <mat-step label="Step 2" ngModelGroup="secondPage" #secondPage="ngModelGroup">
+                  <hr>
+                  <div class="form-outline mb-4">
+                    <input type="file" id="prof_img" class="form-control" name="prof_img" ngModel required />
+                    <label class="form-label" for="prof_img">Profile Image</label>
+                  </div>
+
+
+                  <!-- Hobby -->
+                  <div class="hobbysap">
+                    <div class="form-outline mb-4 me-5" ngModelGroup="hobbies">
+                      <label class="form-label" for="hobbies">Hobbies</label>
+                      <div class="form-check" *ngFor="let hobby of hobbies">
+                        <input class="form-check-input" type="checkbox" value=" {{hobby.label}}" id="flexCheckChecked"
+                          name="{{hobby.label}}" [(ngModel)]="hobby.selected">
+                        <label class="form-check-label" for="flexCheckChecked">
+                          {{hobby.label}}
+                        </label>
+                      </div>
+                      <div *ngIf="!hobbyInput">
+                        <button type="button" class="btn btn-secondary" (click)="onHobby()">add hobby</button>
+                      </div>
+                    </div>
+                    <div *ngIf="hobbyInput">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="hobby">Your Hobby</label>
+                        <input type="text" id="name" name="addedHobby" ngModel class="form-control"
+                          #addedHobby="ngModel" pattern="^[a-zA-Z ]+$" required>
+                      </div>
+                      <button type="button" [disabled]="addedHobby.invalid" class="btn btn-primary"
+                        (click)="onAddHobby(addedHobby)">add</button> &nbsp;
+                      <button type="button" class="btn btn-danger" (click)="onCancelHobby()">close</button>
+                    </div>
+                  </div>
+
+
+                  <div class="form-outline mb-4" ngModelGroup="phone_no">
+                    <label class="form-label" for="contact">Phone No</label>
+                    <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" ngModel name="p1"
+                      placeholder="123">
+                    <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" ngModel name="p2"
+                      placeholder="456">
+                    <input type="text" value="" maxlength="4" class="input-mini" pattern="^[0-9]{4}$" ngModel name="p3"
+                      placeholder="7890"><br>
+                  </div>
+                  <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+                    Previous
+                  </button>
+                  <button type="button" [disabled]="secondPage.invalid" class="btn btn-info mx-3" mat-button
+                    matStepperNext>
+                    Next
+                  </button>
+                </mat-step>
+              </div>
+              <!-- </div> -->
+
+              <div class="step_3">
+                <mat-step label="Step 3" ngModelGroup="thirdPage" #thirdPage="ngModelGroup">
+                  <hr>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="profession">Profession</label>
+
+
+                    <select class="form-select" name="profession" ngModel required>
+                      <option selected hibben disabled>Select</option>
+                      <option value="Data Scientist">Data Scientist</option>
+                      <option value="Software Developer">Software Developer</option>
+                      <option value="Web Developer">Web Developer</option>
+                      <option value="Sales Engineer">Sales Engineer </option>
+                      <option value="Computer Support Specialists">Computer Support Specialists</option>
+                    </select>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="qualification">Qualificaation</label>
+                    <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+                      ngModel required>
+                    </ng-multiselect-dropdown>
+
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea class="form-control" id="desc" rows="3" name="desc" ngModel required></textarea>
+                  </div>
+
+                  <div class="form-outline mb-4" ngModelGroup="contactPerson">
+
+                    <div class="row justify-content-center">
+                      <div class="col-12">
+                        <label>Contect Person</label><br>
+
+                        <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
+                          <div class="row">
+                            <div class="col-5">
+                              <div class="form-group">
+                                <label>Person Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="person.personName" placeholder="Ex: Mike Johnson"
+                                  name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$" required>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <div class="form-group">
+                                <label>Person Number</label>
+                                <input type="text" class="form-control" [(ngModel)]="person.personNumber"
+                                  name="phoneNo_{{person.id}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                              </div>
+                            </div>
+                            <div class="col-2 text-right">
+                              <label>Remove</label>
+                              <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
+                            </div>
+                          </div>
+
+                        </section>
+                        <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-block mb-4"
+                      [disabled]="tamplateForm.invalid">Submit</button>
+                  </div>
+                  <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+                    Previous
+                  </button>
+                </mat-step>
+              </div>
+              <div>
+
+              </div>
+            </mat-horizontal-stepper>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+    Tamplate Driven Form
+  </button>

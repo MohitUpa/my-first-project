@@ -1,180 +1,20 @@
-<div *ngIf="!onEdit"> 
-<ng-template #content let-modal>
-  <div *ngIf="stepdata">
-    <div (focusout)="focusOutFunction($event)">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">
-          Tamplate Driven Registration Form
-        </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">
-            ×
-          </span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="onSubmit(tamplateForm)" #tamplateForm="ngForm">
-          <mat-horizontal-stepper>
-            <div class="step_1">
-              <mat-step label="Step 1">
-                <hr>
-                <div class="form-outline mb-4">
-                  <input type="text" id="name" name="name" ngModel class="form-control" #name="ngModel"
-                    pattern="^[a-zA-Z ]+$" required>
-                  <label class="form-label" for="name">Name</label>
-                </div>
+<div *ngIf="!onEdit">
 
-                <div class="form-outline mb-4">
-                  <input type="email" id="email" name="email" ngModel class="form-control" required email />
-                  <label class="form-label" for="email">Email</label>
-                </div>
+  <div class="row">
 
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="gender">Gender</label>
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked
-                      [(ngModel)]="gender" />
-                    <label class="form-check-label" for="gender"> Male </label>
-                  </div>
-
-                  <div class="form-check">
-                    <input class="form-check-input" ngModel type="radio" name="gender" value="female" id="gender"
-                      [(ngModel)]="gender" />
-                    <label class="form-check-label" for="gender">Female </label>
-                  </div>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="date" id="email" name="dob" ngModel class="form-control" required />
-                  <label class="form-label" for="email">Date of Birth</label>
-                </div>
-              </mat-step>
-            </div>
-
-
-            <div class="step_2">
-              <!-- <div *ngIf="firstPage.valid"> -->
-              <mat-step label="Step 2">
-                <hr>
-                <div class="form-outline mb-4">
-                  <input type="file" id="prof_img" class="form-control" name="prof_img" ngModel required />
-                  <label class="form-label" for="prof_img">Profile Image</label>
-                </div>
-
-                <div class="form-outline mb-4" ngModelGroup="hobbies">
-                  <label class="form-label" for="hobbies">Hobbies</label>
-                  <div class="form-check" *ngFor="let hobby of hobbies">
-                    <input class="form-check-input" type="checkbox" value=" {{hobby.label}}" id="flexCheckChecked"
-                      name="{{hobby.label}}" [(ngModel)]="hobby.selected">
-                    <label class="form-check-label" for="flexCheckChecked">
-                      {{hobby.label}}
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="tel" id="contact" class="form-control" name="phone_no" ngModel #phone="ngModel" required
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
-                  <label class="form-label" for="contact">Phone No</label>
-                </div>
-              </mat-step>
-            </div>
-            <!-- </div> -->
-
-            <div class="step_3">
-              <mat-step label="Step 3">
-                <hr>
-
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="profession">Profession</label>
-
-
-                  <select class="form-select" name="profession" ngModel required>
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="qualification">Qualificaation</label>
-                  <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
-                    ngModel required>
-                  </ng-multiselect-dropdown>
-
-                </div>
-
-                <div class="mb-3">
-                  <label for="desc" class="form-label">Description</label>
-                  <textarea class="form-control" id="desc" rows="3" name="desc" ngModel required></textarea>
-                </div>
-
-                <div class="form-outline mb-4" ngModelGroup="contactPerson">
-
-                  <div class="row justify-content-center">
-                    <div class="col-12">
-                      <label>Contect Person</label><br>
-
-                      <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
-                        <div class="row">
-                          <div class="col-5">
-                            <div class="form-group">
-                              <label>Person Name</label>
-                              <input type="text" class="form-control" [(ngModel)]="person.personName"
-                                name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$" required>
-                            </div>
-                          </div>
-                          <div class="col-5">
-                            <div class="form-group">
-                              <label>Person Number</label>
-                              <input type="text" class="form-control" [(ngModel)]="person.personNumber"
-                                name="phoneNo_{{person.id}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-                            </div>
-                          </div>
-                          <div class="col-2 text-right">
-                            <label>Remove</label>
-                            <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
-                          </div>
-                        </div>
-
-                      </section>
-                      <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary btn-block mb-4"
-                    [disabled]="tamplateForm.invalid">Submit</button>
-                </div>
-              </mat-step>
-            </div>
-            <div>
-
-            </div>
-          </mat-horizontal-stepper>
-        </form>
-      </div>
+    <div class="col-3">
+      <app-tamplate-driven-assign-from></app-tamplate-driven-assign-from>
+    </div>
+    <div class="col-2">
+      <app-reactive-assign-from></app-reactive-assign-from>
     </div>
   </div>
-</ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
-  Tamplate Driven Form
-</button>
-
-<app-reactive-assign-from></app-reactive-assign-from>
 
 </div>
 
 <br><br>
 
-<div >
+<div>
   <form (ngSubmit)="saveData(tamplateForm1)" #tamplateForm1="ngForm">
     <div *ngIf="!onEdit">
 
@@ -196,59 +36,46 @@
         <tbody>
           <tr *ngFor="let infodata of userInfo">
             <td>
-              <div *ngIf="!onEdit">
-                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit</button>&nbsp;
+              <div class="spacebtw">
+                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit </button>&nbsp;
+                <!-- <button type="button" class="btn btn-primary" (click)="editReactive(infodata)">Edit by Reactive</button>&nbsp; -->
                 <button type="button" class="btn btn-danger" (click)="deleteData(infodata)">Delete</button>
               </div>
             </td>
 
             <td>
-              <div *ngIf="!onEdit">{{infodata.data.name}}</div>
+              {{infodata.data.firstPage.name}}
             </td>
             <td>
-              <div *ngIf="!onEdit">
-                {{infodata.data.email}}
-              </div>
+              {{infodata.data.firstPage.email}}
             </td>
             <td>
-              <div *ngIf="!onEdit">
-
-                {{infodata.data.gender}}</div>
+              {{infodata.data.firstPage.gender}}
 
             </td>
             <td>
-              <div *ngIf="!onEdit">
-                {{infodata.data.dob}}</div>
+              {{infodata.data.firstPage.dob}}
             </td>
 
             <td>
-              <div *ngIf="!onEdit">
-                <div *ngFor="let hobby of infodata.data.hobbies | keyvalue">
-                  <div *ngIf="hobby.value">
-                    {{hobby.key}},
-                  </div>
+              <div *ngFor="let hobby of infodata.data.secondPage.hobbies | keyvalue">
+                <div *ngIf="hobby.value">
+                  {{hobby.key}},
                 </div>
               </div>
-
-            </td>
-
-            <td>
-              <div *ngIf="!onEdit">
-                {{infodata.data.phone_no}}</div>
             </td>
             <td>
-              <div *ngIf="!onEdit">
-                {{infodata.data.qualification}}</div>
-
+              {{ infodata.data.secondPage.phone_no.p1}}-{{ infodata.data.secondPage.phone_no.p2}}-{{
+              infodata.data.secondPage.phone_no.p3}}
             </td>
             <td>
-              <div *ngIf="!onEdit">
-                {{infodata.data.profession}}</div>
-
+              {{infodata.data.thirdPage.qualification}}
             </td>
             <td>
-              {{infodata.data.desc}}
-
+              {{infodata.data.thirdPage.profession}}
+            </td>
+            <td>
+              {{infodata.data.thirdPage.desc}}
             </td>
           </tr>
         </tbody>
@@ -287,8 +114,15 @@
       </div>
       <br>
 
-      <input type="tel" class="form-control" id="contact" name="phone_no" [(ngModel)]="oldPhone_no" required
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+      <div class="form-outline mb-4" ngModelGroup="phone_no">
+        <label class="form-label" for="contact">Phone No</label>
+        <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" [(ngModel)]="oldP1" name="p1"
+          placeholder="123">
+        <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" [(ngModel)]="oldP2" name="p2"
+          placeholder="456">
+        <input type="text" maxlength="4" class="input-mini" pattern="^[0-9]{4}$" [(ngModel)]="oldP3" name="p3"
+          placeholder="7890"><br>
+      </div>
       <br>
 
       <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
@@ -297,12 +131,12 @@
       <br>
 
       <select class="form-select" name="profession" [(ngModel)]="oldProfession" required>
-        <option selected></option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option selected hibben disabled>Select</option>
+        <option value="Data Scientist">Data Scientist</option>
+        <option value="Software Developer">Software Developer</option>
+        <option value="Web Developer">Web Developer</option>
+        <option value="Sales Engineer">Sales Engineer </option>
+        <option value="Computer Support Specialists">Computer Support Specialists</option>
       </select>
       <br>
       <div class="col-8">

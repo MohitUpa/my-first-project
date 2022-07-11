@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
 
@@ -12,29 +11,11 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class TestForm3Component implements OnInit {
 
-
   dropdownList = [];
   dropdownSettings: IDropdownSettings = {};
   userInfo = [];
   stepdata = true;
   editData;
-
-  editOn;
-
-  constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService) { }
-
-  ngOnInit() {
-    this.dropdownList = [
-      "Graduation", "post Graduation"
-    ];
-    this.dropdownSettings = {};
-    this.userInfo = this.userdatainfo.userDataInfo;
-    console.log(this.userdatainfo.userDataInfo);
-    
-  }
-
-  // Edit form Code
-
   oldName: string;
   oldEmail: string;
   oldGender: string;
@@ -54,19 +35,29 @@ export class TestForm3Component implements OnInit {
   oldP2;
   oldP3;
   onEdit = false;
+  editOn;
+
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService) { }
+
+  ngOnInit() {
+    this.dropdownList = [
+      "Graduation", "post Graduation"
+    ];
+    this.dropdownSettings = {};
+    this.userInfo = this.userdatainfo.userDataInfo;    
+  }
+
+  // Edit form Code
   edit(data) {
-    
     this.oldId = data.id;
     this.oldName = data.data.firstPage.name;
     this.oldEmail = data.data.firstPage.email;
     this.oldGender = data.data.firstPage.gender;
     this.oldDob = data.data.firstPage.dob;
     this.oldHobbies = data.data.secondPage.hobbies; 
-    
     this.oldP1 = data.data.secondPage.phone_no.p1;
     this.oldP2 = data.data.secondPage.phone_no.p2;
     this.oldP3 = data.data.secondPage.phone_no.p3;
-    console.log(this.oldPhone_no);
     this.oldQualification = data.data.thirdPage.qualification;
     this.oldProfession = data.data.thirdPage.profession;
     this.oldDesc = data.data.thirdPage.desc;
@@ -87,28 +78,9 @@ export class TestForm3Component implements OnInit {
     this.onEdit = false;
   }
 
-  editReactive(reactiveEditData) {
-      console.log();
-      this.editOn = {editStart:true,editData:reactiveEditData};  
-  }
-
-  // contact person code
-  public contectPerson: any[] = [{
-    id: 1,
-    personName: '',
-    personNumber: ''
-  },];
-
-  addPerson() {
-    this.oldContect.push({
-      id: this.contectPerson.length + 1,
-      personName: '',
-      personNumber: ''
-    });
-  }
-
-  removePerson(i: number) {
-    this.oldContect.splice(i, 1);
+  //to reactive edit form
+  editReactive(reactiveEditData) { 
+      this.router.navigate(['reactive-edit',reactiveEditData.id]);
   }
 
   deleteData(data) {

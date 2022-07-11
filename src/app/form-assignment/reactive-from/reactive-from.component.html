@@ -12,9 +12,7 @@
     </div>
     <div class="modal-body">
       <form [formGroup]="myForm" (ngSubmit)="onSubmitR()">
-
         <mat-horizontal-stepper>
-
           <mat-step label="Step 1">
             <hr>
             <div class="step_1" formGroupName="firstPage">
@@ -50,6 +48,7 @@
                 <label class="form-label" for="email">Date of Birth</label>
               </div>
             </div>
+
             <button type="button" [disabled]="myForm.get('firstPage').invalid" class="btn btn-danger mx-3" mat-button
               matStepperNext>
               Next
@@ -58,9 +57,7 @@
 
 
           <mat-step label="Step 2" formGroupName="secondPage">
-
             <hr>
-
             <div class="step_2">
               <div class="form-outline mb-4">
                 <input type="file" id="prof_img" class="form-control" formControlName="prof_img" />
@@ -68,21 +65,8 @@
               </div>
 
               <!-- hobby -->
-              <!-- 
-              <div class="form-outline mb-4" formGroupName="hobbies">
-                <label class="form-label" for="hobbies">Hobbies</label>
-                <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
-                  <input class="form-check-input" type="checkbox" formControlName="{{hobby.label}}"
-                  value="hobby.selected" id="flexCheckChecked">
-                  <label class="form-check-label" for="flexCheckChecked">
-                    {{hobby.label}}
-                  </label>
-                </div>
-              </div> -->
-
-              <!-- test hobby -->
               <div class="hobbysap">
-                <div *ngIf="!hobbyInput">
+                <div>
                   <div class="form-outline mb-4 me-5" formGroupName="hobbies">
                     <label class="form-label" for="hobbies">Hobbies</label>
                     <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
@@ -125,12 +109,9 @@
 
           <mat-step label="Step 3" formGroupName="thirdPage">
             <hr>
-
             <div class="step_3">
               <div class="form-outline mb-4">
                 <label class="form-label" for="profession">Profession</label>
-
-
                 <select class="form-select" formControlName="profession">
                   <option selected></option>
                   <option value="Data Scientist">Data Scientist</option>
@@ -170,9 +151,12 @@
                           </div>
                         </div>
                         <div class="col-5">
-                          <div class="form-group">
+                          <div class="form-group" formGroupName="phoneNo">
                             <label>Person Number</label>
-                            <input type="tel" class="form-control" formControlName="phoneNo">
+                            <label class="form-label" for="contact">Phone No</label>
+                            <input type="text" class="input-mini" formControlName="cp1" placeholder="123">
+                            <input type="text" class="input-mini" formControlName="cp2" placeholder="456">
+                            <input type="text" class="input-mini" formControlName="cp3" placeholder="7890"><br>            
                           </div>
                         </div>
                         <div class="col-2 text-right">
@@ -197,9 +181,6 @@
             </button>
           </mat-step>
         </mat-horizontal-stepper>
-
-
-
       </form>
     </div>
   </div>
@@ -208,7 +189,5 @@
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
   Reactive Form
 </button>
-
-<h2>Edit Mode</h2>
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,13 +12,17 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class TamplateDrivenFromComponent implements OnInit {
 
-  @ViewChild('tamplateForm') formdata1: NgForm;
-
   gender: string;
-
+  dropdownList = [];
+  dropdownSettings: IDropdownSettings = {};
+  userInfo = [];
+  stepdata = true;
+  editData;
+  idval = 1;
+  onEdit = false;
   addedHobby;
+  
   //hobby
-
   hobbies = [
     { label: 'Singing', selected: false },
     { label: 'Dancing', selected: false },
@@ -40,13 +44,6 @@ export class TamplateDrivenFromComponent implements OnInit {
     this.hobbyInput = false;
   }
 
-  dropdownList = [];
-  dropdownSettings: IDropdownSettings = {};
-  userInfo = [];
-  stepdata = true;
-  editData;
-
-
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService) { }
 
   ngOnInit() {
@@ -55,14 +52,10 @@ export class TamplateDrivenFromComponent implements OnInit {
     ];
     this.dropdownSettings = {};
     this.userInfo = this.userdatainfo.userDataInfo;
-    console.log(this.userdatainfo.userDataInfo);
 
   }
-  idval = 1;
 
   onSubmit(formData: NgForm) {
-    console.log("tamplate form data");
-    console.log(formData.value);
     for (var hobby in formData.value.secondPage.hobbies) {
       for (let hob of this.addedhob) {
         if (hobby == hob) {
@@ -85,17 +78,12 @@ export class TamplateDrivenFromComponent implements OnInit {
           const test = this.hobbies[hobby];
           if (test.label == hob) {
             this.hobbies.splice(+hobby, 1);
-            console.log(this.hobbies);
           }
         }
       }
       formData.reset();     
-
     }
-
   }
-
-
 
   //fancybox code 
   closeResult = '';
@@ -119,12 +107,6 @@ export class TamplateDrivenFromComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
-  focusOutFunction(e) {
-    // alert('Are Sure you want to the Form?')
-  }
-
-  onEdit = false;
 
   // contact person code
   public contectPerson: any[] = [{

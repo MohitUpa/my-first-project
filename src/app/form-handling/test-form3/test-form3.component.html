@@ -1,7 +1,5 @@
 <div *ngIf="!onEdit">
-
   <div class="row">
-
     <div class="col-3">
       <app-tamplate-driven-assign-from></app-tamplate-driven-assign-from>
     </div>
@@ -9,7 +7,6 @@
       <app-reactive-assign-from></app-reactive-assign-from>
     </div>
   </div>
-
 </div>
 
 <br><br>
@@ -37,7 +34,7 @@
           <tr *ngFor="let infodata of userInfo">
             <td>
               <div class="spacebtw">
-                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit </button>&nbsp;
+                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit</button>&nbsp;
                 <!-- <button type="button" class="btn btn-primary" (click)="editReactive(infodata)">Edit by Reactive</button>&nbsp; -->
                 <button type="button" class="btn btn-danger" (click)="deleteData(infodata)">Delete</button>
               </div>
@@ -83,13 +80,14 @@
     </div>
 
     <div *ngIf="onEdit" class="editForm">
+      
       <div class="mb-3">
         <input type="hidden" name="id" [(ngModel)]="oldId">
         <input type="text" class="form-control" id="name" name="name" pattern="^[a-zA-Z ]+$" required
           [(ngModel)]="oldName">
       </div>
-      <div class="mb-3">
 
+      <div class="mb-3">
         <input type="text" class="form-control" [(ngModel)]="oldEmail" required name="email" email>
       </div>
 
@@ -125,7 +123,8 @@
       </div>
       <br>
 
-      <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+      <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
+        name="qualification"
         [(ngModel)]="oldQualification" required>
       </ng-multiselect-dropdown>
       <br>

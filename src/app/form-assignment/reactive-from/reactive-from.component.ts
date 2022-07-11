@@ -14,6 +14,12 @@ export class ReactiveFromComponent implements OnInit {
 
   myForm: FormGroup;
   gender: string;
+  addedhob = [];
+  hobbyInput = false;  
+  userInfo;
+  stepdata1 = true;
+  dropdownList = [];
+  dropdownSettings: IDropdownSettings = {};
 
   // hobby
   hobbies = [
@@ -27,7 +33,6 @@ export class ReactiveFromComponent implements OnInit {
     this.myForm = this.fb.group({
       checkArray: this.fb.array([], [Validators.required]),
     });
-
   }
 
   hobbieControls = {
@@ -37,8 +42,6 @@ export class ReactiveFromComponent implements OnInit {
     Fighting: new FormControl(),
   }
 
-  addedhob = [];
-  hobbyInput = false;
   onHobby() {
     this.hobbyInput = true;
   }
@@ -52,18 +55,7 @@ export class ReactiveFromComponent implements OnInit {
     this.hobbyInput = false;
   }
 
-
-  userInfo;
-  stepdata1 = true;
-
-
-  dropdownList = [];
-  dropdownSettings: IDropdownSettings = {};
-
   ngOnInit() {
-
-  
-    this.stepdata1 = true;
     this.dropdownList = [
       "Graduation", "post Graduation"
     ];
@@ -91,7 +83,11 @@ export class ReactiveFromComponent implements OnInit {
         qualification: new FormControl(null, Validators.required),
         contactPerson: new FormGroup({
           personName: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
-          phoneNo: new FormControl(null, [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')]),
+          phoneNo: new FormGroup({
+            cp1: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+            cp2: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+            cp3: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{4}$')]),
+          })
         })
       })
     });

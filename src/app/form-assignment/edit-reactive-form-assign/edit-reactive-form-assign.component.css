@@ -41,3 +41,13 @@ select.ng-valid.ng-touched {
     width: 50px;
     margin: 10px;
 }
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+.alignmy {
+    text-align: left;
+    width: 60%;
+    margin: 0 auto;
+}

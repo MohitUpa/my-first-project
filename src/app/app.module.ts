@@ -73,6 +73,7 @@ import { TamplateDrivenFromComponent } from './form-assignment/tamplate-driven-f
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatStepperModule } from '@angular/material/stepper';
+import { EditReactiveFormAssignComponent } from './form-assignment/edit-reactive-form-assign/edit-reactive-form-assign.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     TestForm3Component,
     FormAssignmentComponent,
     ReactiveFromComponent,
-    TamplateDrivenFromComponent
+    TamplateDrivenFromComponent,
+    EditReactiveFormAssignComponent
   ],
   imports: [
     BrowserModule,

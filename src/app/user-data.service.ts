@@ -38,11 +38,19 @@ export class UserDataService {
           'contactPerson': [
             {
               'personName': 'fffrohit',
-              'phoneNo': '707-787-7887',
+              'phoneNo': {
+                cp1:'789',
+                cp2:'654',
+                cp3:'3210'
+              } 
             },
             {
               'personName': 'rfffaju',
-              'phoneNo': '100-787-7007'
+              'phoneNo': {
+                cp1:'709',
+                cp2:'604',
+                cp3:'3010'
+              } 
             }
           ]
         }

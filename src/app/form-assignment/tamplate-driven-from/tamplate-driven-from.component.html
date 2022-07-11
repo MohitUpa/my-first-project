@@ -1,7 +1,7 @@
 <div *ngIf="!onEdit">
   <ng-template #content let-modal>
     <div *ngIf="stepdata">
-      <div (focusout)="focusOutFunction($event)">
+      <div>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">
             Tamplate Driven Registration Form
@@ -25,7 +25,8 @@
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input type="email" id="email" name="email" ngModel class="form-control" required email placeholder="Ex: example@gmail.com" />
+                    <input type="email" id="email" name="email" ngModel class="form-control" required email
+                      placeholder="Ex: example@gmail.com" />
                     <label class="form-label" for="email">Email</label>
                   </div>
 
@@ -33,14 +34,14 @@
                     <label class="form-label" for="gender">Gender</label>
 
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked required
-                        [(ngModel)]="gender" />
+                      <input class="form-check-input" type="radio" name="gender" value="male" id="gender" checked
+                        required [(ngModel)]="gender" />
                       <label class="form-check-label" for="gender"> Male </label>
                     </div>
 
                     <div class="form-check">
                       <input class="form-check-input" ngModel type="radio" name="gender" value="female" id="gender"
-                        [(ngModel)]="gender" required/>
+                        [(ngModel)]="gender" required />
                       <label class="form-check-label" for="gender">Female </label>
                     </div>
                   </div>
@@ -100,11 +101,11 @@
                   <div class="form-outline mb-4" ngModelGroup="phone_no">
                     <label class="form-label" for="contact">Phone No</label>
                     <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" ngModel name="p1"
-                      placeholder="123">
+                      required placeholder="123">
                     <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" ngModel name="p2"
-                      placeholder="456">
+                      required placeholder="456">
                     <input type="text" value="" maxlength="4" class="input-mini" pattern="^[0-9]{4}$" ngModel name="p3"
-                      placeholder="7890"><br>
+                      required placeholder="7890"><br>
                   </div>
                   <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
                     Previous
@@ -159,15 +160,20 @@
                             <div class="col-5">
                               <div class="form-group">
                                 <label>Person Name</label>
-                                <input type="text" class="form-control" [(ngModel)]="person.personName" placeholder="Ex: Mike Johnson"
-                                  name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$" required>
+                                <input type="text" class="form-control" [(ngModel)]="person.personName"
+                                  placeholder="Ex: Mike Johnson" name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$"
+                                  required>
                               </div>
                             </div>
                             <div class="col-5">
-                              <div class="form-group">
+                              <div class="form-group" ngModelGroup="phoneNo_{{i}}">
                                 <label>Person Number</label>
-                                <input type="text" class="form-control" [(ngModel)]="person.personNumber"
-                                  name="phoneNo_{{person.id}}" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
+                                  required ngModel name="cp1" placeholder="123">
+                                <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
+                                  required ngModel name="cp2" placeholder="456">
+                                <input type="text" value="" maxlength="4" class="input-mini" pattern="^[0-9]{4}$"
+                                  required ngModel name="cp3" placeholder="7890"><br>
                               </div>
                             </div>
                             <div class="col-2 text-right">

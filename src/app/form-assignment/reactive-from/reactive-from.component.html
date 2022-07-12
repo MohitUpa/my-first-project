@@ -11,22 +11,26 @@
       </button>
     </div>
     <div class="modal-body">
+      <!-- Reactive Form -->
       <form [formGroup]="myForm" (ngSubmit)="onSubmitR()">
         <mat-horizontal-stepper>
           <mat-step label="Step 1">
             <hr>
             <div class="step_1" formGroupName="firstPage">
 
+              <!-- Name Field -->
               <div class="form-outline mb-4">
                 <input type="text" id="name" formControlName="name" class="form-control">
                 <label class="form-label" for="name">Name</label>
               </div>
 
+              <!-- Email Field -->
               <div class="form-outline mb-4">
                 <input type="email" id="email" formControlName="email" class="form-control" />
                 <label class="form-label" for="email">Email</label>
               </div>
 
+              <!-- Gender -->
               <div class="form-outline mb-4">
                 <label class="form-label" for="gender">Gender</label>
 
@@ -43,6 +47,7 @@
                 </div>
               </div>
 
+              <!-- DOB Field -->
               <div class="form-outline mb-4">
                 <input type="date" id="email" formControlName="dob" class="form-control" />
                 <label class="form-label" for="email">Date of Birth</label>
@@ -59,6 +64,7 @@
           <mat-step label="Step 2" formGroupName="secondPage">
             <hr>
             <div class="step_2">
+              <!-- Profile Image field -->
               <div class="form-outline mb-4">
                 <input type="file" id="prof_img" class="form-control" formControlName="prof_img" />
                 <label class="form-label" for="prof_img">Profile Image</label>
@@ -71,7 +77,7 @@
                     <label class="form-label" for="hobbies">Hobbies</label>
                     <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
                       <input class="form-check-input" type="checkbox" formControlName="{{hobby.label}}"
-                        value="hobby.selected" id="flexCheckChecked">
+                        id="flexCheckChecked">
                       <label class="form-check-label" for="flexCheckChecked">
                         {{hobby.label}}
                       </label>
@@ -90,6 +96,8 @@
                 </div>
               </div>
 
+
+              <!-- Phone Number Field -->
               <div class="form-outline mb-4" formGroupName="phone_no">
                 <label class="form-label" for="contact">Phone No</label>
                 <input type="text" class="input-mini" formControlName="p1" placeholder="123">
@@ -101,8 +109,7 @@
             <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
               Previous
             </button>
-            <button type="button" [disabled]="myForm.get('secondPage').invalid" class="btn btn-danger mx-3" mat-button
-              matStepperNext>
+            <button type="button" [disabled]="myForm.get('secondPage').invalid" class="btn btn-danger mx-3" mat-button matStepperNext>
               Next
             </button>
           </mat-step>
@@ -110,18 +117,21 @@
           <mat-step label="Step 3" formGroupName="thirdPage">
             <hr>
             <div class="step_3">
+
+              <!-- Profession -->
               <div class="form-outline mb-4">
                 <label class="form-label" for="profession">Profession</label>
                 <select class="form-select" formControlName="profession">
                   <option selected></option>
                   <option value="Data Scientist">Data Scientist</option>
-                      <option value="Software Developer">Software Developer</option>
-                      <option value="Web Developer">Web Developer</option>
-                      <option value="Sales Engineer">Sales Engineer </option>
-                      <option value="Computer Support Specialists">Computer Support Specialists</option>
+                  <option value="Software Developer">Software Developer</option>
+                  <option value="Web Developer">Web Developer</option>
+                  <option value="Sales Engineer">Sales Engineer </option>
+                  <option value="Computer Support Specialists">Computer Support Specialists</option>
                 </select>
               </div>
 
+              <!-- Qualification -->
               <div class="form-outline mb-4">
                 <label class="form-label" for="profession">Qualificaation</label>
                 <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
@@ -130,12 +140,13 @@
 
               </div>
 
-
+              <!-- Description -->
               <div class="mb-3">
                 <label for="desc" class="form-label">Description</label>
                 <textarea class="form-control" id="desc" rows="3" formControlName="desc"></textarea>
               </div>
 
+              <!-- Contect Person -->
               <div class="form-outline mb-4" formGroupName="contactPerson">
 
                 <div class="row justify-content-center">
@@ -144,19 +155,22 @@
 
                     <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
                       <div class="row">
+                        <!-- person Name -->
                         <div class="col-5">
                           <div class="form-group">
                             <label>Person Name</label>
-                            <input type="text" class="form-control" placeholder="Ex: Mike Johnson" formControlName="personName">
+                            <input type="text" class="form-control" placeholder="Ex: Mike Johnson"
+                              formControlName="personName">
                           </div>
                         </div>
+                        <!-- person number -->
                         <div class="col-5">
                           <div class="form-group" formGroupName="phoneNo">
                             <label>Person Number</label>
                             <label class="form-label" for="contact">Phone No</label>
                             <input type="text" class="input-mini" formControlName="cp1" placeholder="123">
                             <input type="text" class="input-mini" formControlName="cp2" placeholder="456">
-                            <input type="text" class="input-mini" formControlName="cp3" placeholder="7890"><br>            
+                            <input type="text" class="input-mini" formControlName="cp3" placeholder="7890"><br>
                           </div>
                         </div>
                         <div class="col-2 text-right">
@@ -189,5 +203,3 @@
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
   Reactive Form
 </button>
-
-

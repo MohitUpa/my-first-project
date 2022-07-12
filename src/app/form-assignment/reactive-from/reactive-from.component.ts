@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
@@ -15,24 +15,22 @@ export class ReactiveFromComponent implements OnInit {
   myForm: FormGroup;
   gender: string;
   addedhob = [];
-  hobbyInput = false;  
+  hobbyInput = false;
   userInfo;
   stepdata1 = true;
   dropdownList = [];
   dropdownSettings: IDropdownSettings = {};
+  idval = 1000;
 
   // hobby
   hobbies = [
-    { label: 'Singing', selected: false },
-    { label: 'Dancing', selected: false },
-    { label: 'Playing', selected: false },
-    { label: 'Fighting', selected: false },
+    { label: 'Singing' },
+    { label: 'Dancing' },
+    { label: 'Playing' },
+    { label: 'Fighting' },
   ];
 
   constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService) {
-    this.myForm = this.fb.group({
-      checkArray: this.fb.array([], [Validators.required]),
-    });
   }
 
   hobbieControls = {
@@ -46,8 +44,8 @@ export class ReactiveFromComponent implements OnInit {
     this.hobbyInput = true;
   }
   onAddHobby(hobby) {
-    this.hobbies.push({ label: hobby.value, selected: false },)
     this.hobbieControls[hobby.value] = new FormControl();
+    this.hobbies.push({ label: hobby.value },)
     this.addedhob.push(hobby.value);
     this.hobbyInput = false;
   }
@@ -94,13 +92,10 @@ export class ReactiveFromComponent implements OnInit {
 
     this.userInfo = this.userDataingo.userDataInfo;
   }
-  idval = 1000;
 
   onSubmitR() {
-    console.log("reactive form data");
-
-    console.log(this.hobbieControls);
-
+    const hobbies = new FormGroup(this.hobbieControls)
+    this.myForm.value.secondPage.hobbies = hobbies.value;
     console.log(this.myForm.value);
 
     for (var hobby in this.myForm.value.secondPage.hobbies) {
@@ -121,22 +116,21 @@ export class ReactiveFromComponent implements OnInit {
           const test = this.hobbies[hobby];
           if (test.label == hob) {
             this.hobbies.splice(+hobby, 1);
-            console.log(this.hobbies);
           }
         }
-      } 
-      this.myForm.reset();     
+      }
+      this.myForm.reset();
     }
     this.stepdata1 = false;
   }
 
 
-
+  // pop up logic
   closeResult = '';
 
   open(content) {
     this.stepdata1 = true;
-    
+
     this.modalService.open(content,
       { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -156,6 +150,7 @@ export class ReactiveFromComponent implements OnInit {
     }
   }
 
+  // contect person logic
   public contectPerson: any[] = [{
     id: 1,
     personName: '',
@@ -173,6 +168,5 @@ export class ReactiveFromComponent implements OnInit {
   removePerson(i: number) {
     this.contectPerson.splice(i, 1);
   }
-
 
 }

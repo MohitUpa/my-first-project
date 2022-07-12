@@ -11,7 +11,7 @@ import { UserDataService } from 'src/app/user-data.service';
   templateUrl: './edit-reactive-form-assign.component.html',
   styleUrls: ['./edit-reactive-form-assign.component.css']
 })
-export class EditReactiveFormAssignComponent implements OnInit,OnDestroy {
+export class EditReactiveFormAssignComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
   gender: string;
   stepdata1 = true;
@@ -22,8 +22,14 @@ export class EditReactiveFormAssignComponent implements OnInit,OnDestroy {
   serviceData;
   addedhob = [];
   hobbyInput = false;
-  sub : Subscription;
+  sub: Subscription;
 
+  constructor(private modalService: NgbModal,
+    private fb: FormBuilder,
+    private userDataingo: UserDataService,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
   // hobby
   hobbies = [
     { label: 'Singing', selected: false },
@@ -32,12 +38,6 @@ export class EditReactiveFormAssignComponent implements OnInit,OnDestroy {
     { label: 'Fighting', selected: false },
   ];
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService, private route: ActivatedRoute, private router: Router) {
-    this.myForm = this.fb.group({
-      checkArray: this.fb.array([], [Validators.required]),
-    });
-
-  }
 
   hobbieControls = {
     Singing: new FormControl(),
@@ -46,7 +46,7 @@ export class EditReactiveFormAssignComponent implements OnInit,OnDestroy {
     Fighting: new FormControl(),
   }
 
- 
+
   onHobby() {
     this.hobbyInput = true;
   }
@@ -62,7 +62,7 @@ export class EditReactiveFormAssignComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
 
-   this.sub = this.route.params.subscribe(params => this.editDataId = params['id']);
+    this.sub = this.route.params.subscribe(params => this.editDataId = params['id']);
 
     this.objIndex = this.userDataingo.userDataInfo.findIndex((obj => obj.id == this.editDataId));
     this.serviceData = this.userDataingo.userDataInfo[this.objIndex].data

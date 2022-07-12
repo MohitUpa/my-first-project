@@ -54,12 +54,11 @@
           <div>
             <div class="form-outline mb-4 me-5" formGroupName="hobbies">
               <label class="form-label" for="hobbies">Hobbies</label>
-              <div class="form-check" *ngFor="let hobby of serviceData.secondPage.hobbies|keyvalue; let i=index">
-                <input class="form-check-input" type="checkbox" formControlName="{{hobby.key}}" [value]="hobby.value"
-                [checked]="hobby.value"                
-                  id="flexCheckChecked">
+              <div class="form-check" *ngFor="let hobby of hobbies; let i=index">
+                <input class="form-check-input" type="checkbox" formControlName="{{hobby.label}}"
+                  [checked]="hobby.selected" value="hobby.selected" id="flexCheckChecked">
                 <label class="form-check-label" for="flexCheckChecked">
-                  {{hobby.key}}
+                  {{hobby.label}}
                 </label>
               </div>
               <button type="button" class="btn btn-secondary" (click)="onHobby()">add hobby</button>

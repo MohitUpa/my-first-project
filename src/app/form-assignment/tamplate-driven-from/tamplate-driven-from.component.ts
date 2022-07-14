@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
+import { RegisService } from '../regis.service';
 
 @Component({
   selector: 'app-tamplate-driven-assign-from',
@@ -18,7 +19,6 @@ export class TamplateDrivenFromComponent implements OnInit {
   userInfo = [];
   stepdata = true;
   editData;
-  idval = 1;
   onEdit = false;
   addedHobby;
   
@@ -44,7 +44,7 @@ export class TamplateDrivenFromComponent implements OnInit {
     this.hobbyInput = false;
   }
 
-  constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService) { }
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private router: Router, private userdatainfo: UserDataService, private regis: RegisService) { }
 
   ngOnInit() {
     this.dropdownList = [
@@ -56,6 +56,9 @@ export class TamplateDrivenFromComponent implements OnInit {
   }
 
   onSubmit(formData: NgForm) {
+    console.log(formData.value);
+    console.log(formData);
+    
     for (var hobby in formData.value.secondPage.hobbies) {
       for (let hob of this.addedhob) {
         if (hobby == hob) {
@@ -67,10 +70,9 @@ export class TamplateDrivenFromComponent implements OnInit {
     }
 
     if (formData.valid) {
-      this.userdatainfo.userDataInfo.push({ id: this.idval++, form: 'tamplate', data: formData.value });
+      this.regis.storeData({form: 'tamplate', data: formData.value })
       alert('thankyou for registring');
       this.userInfo = this.userdatainfo.userDataInfo;
-      console.log(this.userdatainfo.userDataInfo);
       this.stepdata = false;
 
       for (let hob of this.addedhob) {
@@ -112,14 +114,18 @@ export class TamplateDrivenFromComponent implements OnInit {
   public contectPerson: any[] = [{
     id: 1,
     personName: '',
-    personNumber: ''
+    personNumber: {
+      cp1: '', cp2: '' , cp3: ''
+    }
   },];
 
   addPerson() {
     this.contectPerson.push({
       id: this.contectPerson.length + 1,
       personName: '',
-      personNumber: ''
+      personNumber: {
+        cp1: '', cp2: '' , cp3: ''
+      }
     });
   }
 

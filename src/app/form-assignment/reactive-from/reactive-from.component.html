@@ -147,13 +147,13 @@
               </div>
 
               <!-- Contect Person -->
-              <div class="form-outline mb-4" formGroupName="contactPerson">
+              <div class="form-outline mb-4" formArrayName="contactPerson" >
 
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <label>Contect Person</label><br>
 
-                    <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
+                    <section class="container border mb-4 p-3" *ngFor="let person of control; let i = index;" [formGroupName]="i">
                       <div class="row">
                         <!-- person Name -->
                         <div class="col-5">
@@ -165,7 +165,7 @@
                         </div>
                         <!-- person number -->
                         <div class="col-5">
-                          <div class="form-group" formGroupName="phoneNo">
+                          <div class="form-group" formGroupName="personNumber">
                             <label>Person Number</label>
                             <label class="form-label" for="contact">Phone No</label>
                             <input type="text" class="input-mini" formControlName="cp1" placeholder="123">
@@ -187,12 +187,12 @@
               </div>
 
             </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="myForm.invalid">Submit</button>
-            </div>
             <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
               Previous
             </button>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-success btn-block mb-4" [disabled]="myForm.invalid">Submit</button>
+            </div>
           </mat-step>
         </mat-horizontal-stepper>
       </form>

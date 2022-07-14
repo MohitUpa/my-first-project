@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -74,6 +75,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatStepperModule } from '@angular/material/stepper';
 import { EditReactiveFormAssignComponent } from './form-assignment/edit-reactive-form-assign/edit-reactive-form-assign.component';
+import { ShowDataComponent } from './form-assignment/show-data/show-data.component';
 
 @NgModule({
   declarations: [
@@ -136,13 +138,15 @@ import { EditReactiveFormAssignComponent } from './form-assignment/edit-reactive
     FormAssignmentComponent,
     ReactiveFromComponent,
     TamplateDrivenFromComponent,
-    EditReactiveFormAssignComponent
+    EditReactiveFormAssignComponent,
+    ShowDataComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NgbModule,
     NgMultiSelectDropDownModule.forRoot(),
     MatStepperModule,

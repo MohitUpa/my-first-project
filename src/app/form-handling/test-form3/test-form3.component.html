@@ -6,6 +6,9 @@
     <div class="col-2">
       <app-reactive-assign-from></app-reactive-assign-from>
     </div>
+    <div class="col-2">
+      <button class="btn btn-primary" (click)="onFatchData()">Fatch Data</button>
+    </div>
   </div>
 </div>
 
@@ -14,135 +17,221 @@
 <div>
   <form (ngSubmit)="saveData(tamplateForm1)" #tamplateForm1="ngForm">
     <div *ngIf="!onEdit">
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Edit/Delete</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>DOB</th>
-            <th>Hobbies</th>
-            <th>Phone No</th>
-            <th>Qualification</th>
-            <th>Profession</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let infodata of userInfo">
-            <td>
-              <div class="spacebtw">
-                <button type="button" class="btn btn-primary" (click)="edit(infodata)">Edit</button>&nbsp;
-                <!-- <button type="button" class="btn btn-primary" (click)="editReactive(infodata)">Edit by Reactive</button>&nbsp; -->
-                <button type="button" class="btn btn-danger" (click)="deleteData(infodata)">Delete</button>
-              </div>
-            </td>
-
-            <td>
-              {{infodata.data.firstPage.name}}
-            </td>
-            <td>
-              {{infodata.data.firstPage.email}}
-            </td>
-            <td>
-              {{infodata.data.firstPage.gender}}
-
-            </td>
-            <td>
-              {{infodata.data.firstPage.dob}}
-            </td>
-
-            <td>
-              <div *ngFor="let hobby of infodata.data.secondPage.hobbies | keyvalue">
-                <div *ngIf="hobby.value">
-                  {{hobby.key}},
+      <div *ngIf="!isFatching">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Edit/Delete</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>DOB</th>
+              <th>Hobbies</th>
+              <th>Phone No</th>
+              <th>Qualification</th>
+              <th>Profession</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let infodata of userInfo">
+              <td>
+                <div class="spacebtw">
+                  <button type="button" class="btn btn-primary" (click)="edit(infodata.id)">Edit by
+                    tamplate</button>&nbsp;
+                  <button type="button" class="btn btn-primary" (click)="editReactive(infodata)">Edit by
+                    Reactive</button>&nbsp;
+                  <button type="button" class="btn btn-danger" (click)="deleteData(infodata.id)">Delete</button>
                 </div>
-              </div>
-            </td>
-            <td>
-              {{ infodata.data.secondPage.phone_no.p1}}-{{ infodata.data.secondPage.phone_no.p2}}-{{
-              infodata.data.secondPage.phone_no.p3}}
-            </td>
-            <td>
-              {{infodata.data.thirdPage.qualification}}
-            </td>
-            <td>
-              {{infodata.data.thirdPage.profession}}
-            </td>
-            <td>
-              {{infodata.data.thirdPage.desc}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+
+              <td>
+                {{infodata.data.firstPage.name}}
+              </td>
+              <td>
+                {{infodata.data.firstPage.email}}
+              </td>
+              <td>
+                {{infodata.data.firstPage.gender}}
+
+              </td>
+              <td>
+                {{infodata.data.firstPage.dob}}
+              </td>
+
+              <td>
+                <div *ngFor="let hobby of infodata.data.secondPage.hobbies | keyvalue">
+                  <div *ngIf="hobby.value">
+                    {{hobby.key}},
+                  </div>
+                </div>
+              </td>
+              <td>
+                {{ infodata.data.secondPage.phone_no.p1}}-{{ infodata.data.secondPage.phone_no.p2}}-{{
+                infodata.data.secondPage.phone_no.p3}}
+              </td>
+              <td>
+                {{infodata.data.thirdPage.qualification}}
+              </td>
+              <td>
+                {{infodata.data.thirdPage.profession}}
+              </td>
+              <td>
+                {{infodata.data.thirdPage.desc}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 *ngIf="isFatching"><b>loading...</b></h2>
     </div>
 
     <div *ngIf="onEdit" class="editForm">
-      
-      <div class="mb-3">
-        <input type="hidden" name="id" [(ngModel)]="oldId">
-        <input type="text" class="form-control" id="name" name="name" pattern="^[a-zA-Z ]+$" required
-          [(ngModel)]="oldName">
-      </div>
+      <mat-horizontal-stepper>
+        <div class="step_1">
+          <mat-step label="Step 1" ngModelGroup="firstPage" #firstPage="ngModelGroup">
+            <hr>
+            <div class="mb-3">
+              <h4><b>Name :</b></h4>
+              <input type="hidden" name="id" [(ngModel)]="oldId">
+              <input type="text" class="form-control" id="name" name="name" pattern="^[a-zA-Z ]+$" required
+                [(ngModel)]="oldValue.firstPage.name">
+            </div>
 
-      <div class="mb-3">
-        <input type="text" class="form-control" [(ngModel)]="oldEmail" required name="email" email>
-      </div>
+            <div class="mb-3">
+              <h4><b>Email :</b></h4>
+              <input type="text" class="form-control" [(ngModel)]="oldValue.firstPage.email" required name="email"
+                email>
+            </div>
 
-      <input type="radio" class="form-check-input" name="gender" value="male" id="gender" checked
-        [(ngModel)]="oldGender" />Male
+            <h4><b>Gender :</b></h4>
+            <input type="radio" class="form-check-input" name="gender" value="male" id="gender" checked
+              [(ngModel)]="oldValue.firstPage.gender" />Male <br>
 
-      <input ngModel class="form-check-input" type="radio" name="gender" value="female" id="gender"
-        [(ngModel)]="oldGender" />Female
-      <br>
+              <input ngModel class="form-check-input" type="radio" name="gender" value="female" id="gender"
+              [(ngModel)]="oldValue.firstPage.gender" />Female
+              <br><br>
+              
+              <h4><b>DOB :</b></h4>
+            <input type="date" class="form-control" [(ngModel)]="oldValue.firstPage.dob" required name="dob">
+            <br>
 
-      <input type="date" class="form-control" [(ngModel)]="oldDob" required name="dob">
-      <br>
-
-      <div class="form-outline mb-4" ngModelGroup="hobbies">
-        <div class="form-check" *ngFor="let hobby of oldHobbies|keyvalue">
-          <input type="checkbox" class="form-check-input" value=" {{hobby.key}}" id="flexCheckChecked"
-            name="{{hobby.key}}" [(ngModel)]="hobby.value">
-          <label class="form-check-label" for="flexCheckChecked">
-            {{hobby.key}}
-          </label>
+            <button type="button" [disabled]="firstPage.invalid" class="btn btn-info mx-3" mat-button matStepperNext>
+              Next
+            </button>
+          </mat-step>
         </div>
-      </div>
-      <br>
 
-      <div class="form-outline mb-4" ngModelGroup="phone_no">
-        <label class="form-label" for="contact">Phone No</label>
-        <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" [(ngModel)]="oldP1" name="p1"
-          placeholder="123">
-        <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" [(ngModel)]="oldP2" name="p2"
-          placeholder="456">
-        <input type="text" maxlength="4" class="input-mini" pattern="^[0-9]{4}$" [(ngModel)]="oldP3" name="p3"
-          placeholder="7890"><br>
-      </div>
-      <br>
 
-      <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
-        name="qualification"
-        [(ngModel)]="oldQualification" required>
-      </ng-multiselect-dropdown>
-      <br>
+        <div class="step_2">
+          <mat-step label="Step 2" ngModelGroup="secondPage" #secondPage="ngModelGroup">
+            <hr>
 
-      <select class="form-select" name="profession" [(ngModel)]="oldProfession" required>
-        <option selected hibben disabled>Select</option>
-        <option value="Data Scientist">Data Scientist</option>
-        <option value="Software Developer">Software Developer</option>
-        <option value="Web Developer">Web Developer</option>
-        <option value="Sales Engineer">Sales Engineer </option>
-        <option value="Computer Support Specialists">Computer Support Specialists</option>
-      </select>
-      <br>
-      <div class="col-8">
-        <textarea class="form-control" id="desc" rows="3" name="desc" [(ngModel)]="oldDesc" required></textarea>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-success" [disabled]="tamplateForm1.invalid">Save</button>
+            <h4><b>Hobbies :</b></h4>
+            <div class="form-outline mb-4" ngModelGroup="hobbies">
+              <div class="form-check" *ngFor="let hobby of oldValue.secondPage.hobbies |keyvalue">
+                <input type="checkbox" class="form-check-input" value=" {{hobby.key}}" id="flexCheckChecked"
+                  name="{{hobby.key}}" [(ngModel)]="hobby.value">
+                <label class="form-check-label" for="flexCheckChecked">
+                  {{hobby.key}}
+                </label>
+              </div>
+            </div>
+            <br>
+
+            <h4><b>phone Number :</b></h4>
+            <div class="form-outline mb-4" ngModelGroup="phone_no">
+           
+              <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
+                [(ngModel)]="oldValue.secondPage.phone_no.p1" name="p1" placeholder="123" required>
+              <input type="text" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
+                [(ngModel)]="oldValue.secondPage.phone_no.p2" name="p2" placeholder="456" required>
+              <input type="text" maxlength="4" class="input-mini" pattern="^[0-9]{4}$"
+                [(ngModel)]="oldValue.secondPage.phone_no.p3" name="p3" placeholder="7890" required><br>
+            </div>
+            <br>
+            <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+              Previous
+            </button>
+            <button type="button" [disabled]="secondPage.invalid" class="btn btn-info mx-3" mat-button matStepperNext>
+              Next
+            </button>
+          </mat-step>
+        </div>
+
+        <div class="step_3">
+          <mat-step label="Step 3" ngModelGroup="thirdPage" #thirdPage="ngModelGroup">
+            <hr>
+
+            <h4><b>Qualification :</b></h4>
+
+              <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList" name="qualification"
+                [(ngModel)]="oldValue.thirdPage.qualification" required>
+              </ng-multiselect-dropdown>
+              <br>
+
+              <select class="form-select" name="profession" [(ngModel)]="oldValue.thirdPage.profession" required>
+                <option selected hibben disabled>Select</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Software Developer">Software Developer</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="Sales Engineer">Sales Engineer </option>
+                <option value="Computer Support Specialists">Computer Support Specialists</option>
+              </select>
+              <br>
+              <div class="col-8">
+                <textarea class="form-control" id="desc" rows="3" name="desc" [(ngModel)]="oldValue.thirdPage.desc"
+                  required></textarea>
+              </div>
+              <br>
+
+              <div class="form-outline mb-4" ngModelGroup="contactPerson">
+
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <label>Contect Person</label><br>
+
+                    <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
+                      <div class="row" ngModelGroup="{{i}}">
+                        <div class="col-5">
+                          <div class="form-group">
+                            <label>Person Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="person.personName"
+                              placeholder="Ex: Mike Johnson" name="personName" pattern="^[a-zA-Z ]+$" required>
+                          </div>
+                        </div>
+                        <div class="col-5">
+                          <div class="form-group" ngModelGroup="personNumber">
+                            <label>Person Number</label>
+                            <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" required
+                              [(ngModel)]="person.personNumber.cp1" name="cp1" placeholder="123">
+                            <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$" required
+                              [(ngModel)]="person.personNumber.cp2" name="cp2" placeholder="456">
+                            <input type="text" value="" maxlength="4" class="input-mini" pattern="^[0-9]{4}$" required
+                              [(ngModel)]="person.personNumber.cp3" name="cp3" placeholder="7890"><br>
+                          </div>
+                        </div>
+                        <div class="col-2 text-right">
+                          <label>Remove</label>
+                          <button type="button" class="btn btn-danger btn-sm" (click)="removePerson(i)">x</button>
+                        </div>
+                      </div>
+
+                    </section>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addPerson()">Add Person</button>
+                  </div>
+                </div>
+              </div>
+
+            <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+              Previous
+            </button>
+            <button type="submit" class="btn btn-success" [disabled]="tamplateForm1.invalid">Save</button>
+          </mat-step>
+        </div>
+
+      </mat-horizontal-stepper>
     </div>
+
   </form>
 </div>

@@ -156,24 +156,24 @@
                         <label>Contect Person</label><br>
 
                         <section class="container border mb-4 p-3" *ngFor="let person of contectPerson; let i = index;">
-                          <div class="row">
+                          <div class="row" ngModelGroup="{{i}}">
                             <div class="col-5">
                               <div class="form-group">
                                 <label>Person Name</label>
                                 <input type="text" class="form-control" [(ngModel)]="person.personName"
-                                  placeholder="Ex: Mike Johnson" name="personName_{{person.id}}" pattern="^[a-zA-Z ]+$"
+                                  placeholder="Ex: Mike Johnson" name="personName" pattern="^[a-zA-Z ]+$"
                                   required>
                               </div>
                             </div>
                             <div class="col-5">
-                              <div class="form-group" ngModelGroup="phoneNo_{{i}}">
-                                <label>Person Number</label>
+                              <label>Person Number</label>
+                              <div class="form-group" ngModelGroup="personNumber">
                                 <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
-                                  required ngModel name="cp1" placeholder="123">
+                                  required  [(ngModel)]="person.personNumber.cp1" name="cp1" placeholder="123">
                                 <input type="text" value="" maxlength="3" class="input-mini" pattern="^[0-9]{3}$"
-                                  required ngModel name="cp2" placeholder="456">
+                                  required  [(ngModel)]="person.personNumber.cp2" name="cp2" placeholder="456">
                                 <input type="text" value="" maxlength="4" class="input-mini" pattern="^[0-9]{4}$"
-                                  required ngModel name="cp3" placeholder="7890"><br>
+                                  required  [(ngModel)]="person.personNumber.cp3" name="cp3" placeholder="7890"><br>
                               </div>
                             </div>
                             <div class="col-2 text-right">
@@ -189,13 +189,13 @@
 
                   </div>
 
+                  <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
+                    Previous
+                  </button>
                   <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary btn-block mb-4"
                       [disabled]="tamplateForm.invalid">Submit</button>
                   </div>
-                  <button type="button" class="btn btn-warning" mat-button matStepperPrevious>
-                    Previous
-                  </button>
                 </mat-step>
               </div>
               <div>

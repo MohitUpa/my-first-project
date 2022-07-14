@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { UserDataService } from 'src/app/user-data.service';
+import { RegisService } from '../regis.service';
 
 
 @Component({
@@ -20,7 +21,6 @@ export class ReactiveFromComponent implements OnInit {
   stepdata1 = true;
   dropdownList = [];
   dropdownSettings: IDropdownSettings = {};
-  idval = 1000;
 
   // hobby
   hobbies = [
@@ -30,7 +30,7 @@ export class ReactiveFromComponent implements OnInit {
     { label: 'Fighting' },
   ];
 
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService) {
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private userDataingo: UserDataService, private regis: RegisService) {
   }
 
   hobbieControls = {
@@ -79,18 +79,24 @@ export class ReactiveFromComponent implements OnInit {
         profession: new FormControl(null, Validators.required),
         desc: new FormControl(null, Validators.required),
         qualification: new FormControl(null, Validators.required),
-        contactPerson: new FormGroup({
-          personName: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
-          phoneNo: new FormGroup({
-            cp1: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
-            cp2: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
-            cp3: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{4}$')]),
-          })
-        })
+        contactPerson: new FormArray([
+          new FormGroup({
+            personName: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+            personNumber: new FormGroup({
+              cp1: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+              cp2: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+              cp3: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{4}$')]),
+            })
+          }),
+        ])
       })
     });
 
     this.userInfo = this.userDataingo.userDataInfo;
+  }
+
+  get control() {
+    return (<FormArray>this.myForm.get('thirdPage.contactPerson')).controls;
   }
 
   onSubmitR() {
@@ -109,7 +115,7 @@ export class ReactiveFromComponent implements OnInit {
     }
 
     if (this.myForm.valid) {
-      this.userInfo = this.userDataingo.userDataInfo.push({ id: this.idval++, form: 'reactive', data: this.myForm.value });
+      this.regis.storeData({ form: 'reactive', data: this.myForm.value })
       alert('thankyou for registring');
       for (let hob of this.addedhob) {
         for (var hobby in this.hobbies) {
@@ -125,7 +131,8 @@ export class ReactiveFromComponent implements OnInit {
   }
 
 
-  // pop up logic
+
+  // pop up
   closeResult = '';
 
   open(content) {
@@ -150,23 +157,23 @@ export class ReactiveFromComponent implements OnInit {
     }
   }
 
-  // contect person logic
-  public contectPerson: any[] = [{
-    id: 1,
-    personName: '',
-    personNumber: ''
-  }];
+ 
 
   addPerson() {
-    this.contectPerson.push({
-      id: this.contectPerson.length + 1,
-      personName: '',
-      personNumber: ''
-    });
+    (<FormArray>this.myForm.get('thirdPage.contactPerson')).push(
+      new FormGroup({
+        personName: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]),
+        personNumber: new FormGroup({
+          cp1: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+          cp2: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{3}$')]),
+          cp3: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{4}$')]),
+        })
+      }),
+    )
   }
 
   removePerson(i: number) {
-    this.contectPerson.splice(i, 1);
+    (<FormArray>this.myForm.get('thirdPage.contactPerson')).removeAt(i);
   }
 
 }
